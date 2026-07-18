@@ -1,0 +1,53 @@
+# Load libraries
+library(dplyr)
+library(ggplot2)
+library(effectsize)
+
+# Load data
+data <- read.csv("~/Individualistic/identity_study/DGF_Coding_Spreadsheet - Summary.csv", skip = 4, header = TRUE)
+
+# Check data loaded correctly
+head(data)
+nrow(data)
+table(data$model)
+table(data$identity_status)
+
+# Convert to factors
+data$model <- factor(data$model, levels = c("ChatGPT", "Claude", "Gemini"))
+data$identity_status <- factor(data$identity_status, levels = c("Diffusion", "Foreclosure", "Moratorium", "Achievement"))
+
+# ANOVA 1: Does model affect DGI?
+model_anova <- aov(DGI ~ model, data = data)
+summary(model_anova)
+TukeyHSD(model_anova)
+eta_squared(model_anova)
+
+# ANOVA 2: Does identity status affect DGI?
+status_anova <- aov(DGI ~ identity_status, data = data)
+summary(status_anova)
+eta_squared(status_anova)
+
+# Figure 1: Mean DGI by Model
+model_summary <- data %>%
+  group_by(model) %>%
+  summarise(mean_DGI = mean(DGI), se = sd(DGI)/sqrt(n()))
+
+ggplot(model_summary, aes(x=model, y=mean_DGI, fill=model)) +
+  geom_col(width=0.5, show.legend=FALSE) +
+  geom_errorbar(aes(ymin=mean_DGI-1.96*se, ymax=mean_DGI+1.96*se), width=0.2) +
+  labs(title="Figure 1. Mean DGI by AI Model", x="AI Model", y="Mean DGI (95% CI)") +
+  theme_classic()
+ggsave("figure1_model_DGI.png", dpi=300, width=6, height=5)
+
+# Figure 2: Mean DGI by Identity Status
+status_summary <- data %>%
+  group_by(identity_status) %>%
+  summarise(mean_DGI = mean(DGI), se = sd(DGI)/sqrt(n()))
+
+ggplot(status_summary, aes(x=identity_status, y=mean_DGI, fill=identity_status)) +
+  geom_col(width=0.5, show.legend=FALSE) +
+  geom_errorbar(aes(ymin=mean_DGI-1.96*se, ymax=mean_DGI+1.96*se), width=0.2) +
+  labs(title="Figure 2. Mean DGI by Identity Status", x="Identity Status", y="Mean DGI (95% CI)") +
+  theme_classic()
+ggsave("figure2_status_DGI.png", dpi=300, width=6, height=5)
+
