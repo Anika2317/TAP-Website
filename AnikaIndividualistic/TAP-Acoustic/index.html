@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Acoustic Project — TAP</title>
+<link href="https://fonts.googleapis.com/css2?family=Gilda+Display&family=DM+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: #04060F;
+  --deep: #070D1A;
+  --indigo: #0F1E3D;
+  --teal: #0D9488;
+  --teal-glow: #2DD4BF;
+  --coral: #F4715A;
+  --gold: #F5C842;
+  --lavender: #A78BFA;
+  --fog: #C8D8E8;
+  --white: #EEF4F8;
+  --muted: rgba(200,216,232,0.45);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  background: var(--void);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ─── CANVAS BACKGROUND ─── */
+#neural-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 56px;
+  background: rgba(4,6,15,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(45,212,191,0.1);
+}
+
+.wordmark {
+  font-family: 'Gilda Display', serif;
+  font-size: 20px;
+  letter-spacing: 0.12em;
+  color: var(--teal-glow);
+  position: relative;
+}
+
+.wordmark::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, var(--teal-glow), transparent);
+}
+
+.tabs {
+  display: flex;
+  gap: 2px;
+  background: rgba(45,212,191,0.04);
+  border: 1px solid rgba(45,212,191,0.1);
+  padding: 3px;
+  border-radius: 2px;
+}
+
+.tab {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(200,216,232,0.4);
+  background: none;
+  border: none;
+  padding: 7px 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 1px;
+}
+
+.tab.active {
+  background: rgba(45,212,191,0.12);
+  color: var(--teal-glow);
+}
+
+/* ─── PAGES ─── */
+.page { display: none; padding-top: 56px; position: relative; z-index: 1; }
+.page.active { display: block; }
+
+/* ═══════════════════ PAGE 1 ═══════════════════ */
+
+/* HERO */
+.hero {
+  min-height: calc(100vh - 56px);
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: 80px 56px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* sound wave SVG behind hero text */
+.hero-wave {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 180px;
+  opacity: 0.08;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.hero-left { display: flex; flex-direction: column; gap: 32px; }
+
+.h-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+}
+
+.h-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--teal-glow);
+  flex-shrink: 0;
+}
+
+.h-title {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(56px, 6.5vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  color: var(--white);
+  position: relative;
+}
+
+.h-title em {
+  font-style: italic;
+  color: var(--teal-glow);
+  text-shadow: 0 0 60px rgba(45,212,191,0.35);
+}
+
+.h-title .ghost {
+  display: block;
+  -webkit-text-stroke: 1px rgba(45,212,191,0.25);
+  color: transparent;
+  font-style: italic;
+}
+
+.h-sub {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+.h-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.htag {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border: 1px solid rgba(45,212,191,0.2);
+  color: rgba(45,212,191,0.6);
+  border-radius: 100px;
+  backdrop-filter: blur(4px);
+}
+
+/* RIGHT — glowing cards */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.glow-card {
+  background: rgba(13,30,61,0.6);
+  border: 1px solid rgba(45,212,191,0.1);
+  backdrop-filter: blur(16px);
+  padding: 28px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s, transform 0.3s;
+}
+
+.glow-card:hover {
+  border-color: rgba(45,212,191,0.3);
+  transform: translateX(4px);
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, var(--teal-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.glow-card:hover::before { opacity: 1; }
+
+.gc-label {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+.gc-title {
+  font-family: 'Gilda Display', serif;
+  font-size: 18px;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.gc-body {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* HERO BOTTOM */
+.hero-bottom {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(45,212,191,0.07);
+  margin-top: 48px;
+}
+
+.hb-stat { display: flex; flex-direction: column; gap: 4px; }
+
+.hb-num {
+  font-family: 'Gilda Display', serif;
+  font-size: 36px;
+  color: var(--teal-glow);
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(45,212,191,0.3);
+}
+
+.hb-desc {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.hb-div {
+  width: 1px;
+  height: 40px;
+  background: rgba(45,212,191,0.12);
+}
+
+/* ─── NEURO SECTION ─── */
+.neuro {
+  padding: 100px 56px;
+  position: relative;
+  overflow: hidden;
+}
+
+.neuro::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13,148,136,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.neuro-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  margin-bottom: 72px;
+}
+
+.neuro-headline {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.1;
+  color: var(--white);
+}
+
+.neuro-headline em {
+  font-style: italic;
+  color: var(--teal-glow);
+}
+
+.neuro-intro {
+  font-size: 14px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.85;
+  font-weight: 300;
+  padding-top: 12px;
+  border-top: 1px solid rgba(45,212,191,0.1);
+}
+
+.neuro-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(45,212,191,0.06);
+}
+
+.np {
+  background: var(--void);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+
+.np:hover { background: rgba(13,30,61,0.8); }
+
+.np::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--teal-glow), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.np:hover::after { opacity: 0.4; }
+
+.np-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  font-size: 18px;
+  position: relative;
+}
+
+.np-icon.teal { background: rgba(13,148,136,0.15); box-shadow: 0 0 20px rgba(13,148,136,0.2); }
+.np-icon.coral { background: rgba(244,113,90,0.12); box-shadow: 0 0 20px rgba(244,113,90,0.15); }
+.np-icon.gold { background: rgba(245,200,66,0.12); box-shadow: 0 0 20px rgba(245,200,66,0.15); }
+.np-icon.lav { background: rgba(167,139,250,0.12); box-shadow: 0 0 20px rgba(167,139,250,0.15); }
+
+.np-head {
+  font-family: 'Gilda Display', serif;
+  font-size: 17px;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.np-body {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.np-tag {
+  display: inline-block;
+  margin-top: 16px;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  opacity: 0.5;
+}
+
+/* ─── SOUND WAVE DIVIDER ─── */
+.wave-div {
+  padding: 0 56px;
+  opacity: 0.15;
+}
+
+.wave-div svg { width: 100%; }
+
+/* ─── HOW ─── */
+.how {
+  padding: 80px 56px;
+  position: relative;
+}
+
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 52px;
+}
+
+.sl-line {
+  width: 40px; height: 1px;
+  background: var(--teal-glow);
+  opacity: 0.4;
+}
+
+.sl-text {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  opacity: 0.7;
+}
+
+.sl-title {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  color: var(--white);
+}
+
+.how-flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+
+.how-flow::before {
+  content: '';
+  position: absolute;
+  top: 28px; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(45,212,191,0.2), rgba(45,212,191,0.2), transparent);
+}
+
+.hf-step {
+  padding: 0 24px 0;
+  position: relative;
+}
+
+.hf-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--teal-glow);
+  box-shadow: 0 0 16px rgba(45,212,191,0.6), 0 0 32px rgba(45,212,191,0.2);
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.hf-n {
+  font-family: 'Gilda Display', serif;
+  font-size: 11px;
+  color: var(--teal-glow);
+  opacity: 0.4;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.hf-title {
+  font-family: 'Gilda Display', serif;
+  font-size: 19px;
+  color: var(--white);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.hf-body {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* ─── ORIGIN ─── */
+.origin {
+  margin: 0 56px 0;
+  background: linear-gradient(135deg, rgba(13,148,136,0.08) 0%, rgba(13,30,61,0.6) 50%, rgba(167,139,250,0.06) 100%);
+  border: 1px solid rgba(45,212,191,0.1);
+  backdrop-filter: blur(20px);
+  padding: 72px 64px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 72px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.origin::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%);
+}
+
+.origin-label {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+.origin-title {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(28px, 3vw, 42px);
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 24px;
+}
+
+.origin-title em {
+  font-style: italic;
+  color: var(--teal-glow);
+}
+
+.origin-body {
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.9;
+  font-weight: 300;
+}
+
+.quote-glass {
+  background: rgba(4,6,15,0.5);
+  border: 1px solid rgba(45,212,191,0.12);
+  padding: 36px 32px;
+  position: relative;
+}
+
+.quote-glass::before {
+  content: '"';
+  position: absolute;
+  top: -10px; left: 24px;
+  font-family: 'Gilda Display', serif;
+  font-size: 80px;
+  color: var(--teal-glow);
+  opacity: 0.15;
+  line-height: 1;
+}
+
+.qt {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-style: italic;
+  color: var(--white);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.qa {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+/* ─── TICKER ─── */
+.ticker {
+  margin: 72px 0 0;
+  padding: 18px 0;
+  background: rgba(13,148,136,0.06);
+  border-top: 1px solid rgba(45,212,191,0.08);
+  border-bottom: 1px solid rgba(45,212,191,0.08);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-inner {
+  display: inline-block;
+  animation: tick 30s linear infinite;
+}
+
+.ticker-inner span {
+  font-family: 'Gilda Display', serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: rgba(45,212,191,0.5);
+  padding: 0 36px;
+}
+
+.ticker-inner .dot {
+  color: rgba(45,212,191,0.2);
+  padding: 0;
+  font-size: 8px;
+  vertical-align: middle;
+}
+
+@keyframes tick {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── FOOTER ─── */
+.foot {
+  padding: 24px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(45,212,191,0.06);
+  margin-top: 80px;
+}
+
+.foot-name {
+  font-family: 'Gilda Display', serif;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: rgba(200,216,232,0.2);
+}
+
+.foot-detail {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(200,216,232,0.15);
+}
+
+/* ═══════════════════ PAGE 2 ═══════════════════ */
+
+.p2-hero {
+  padding: 100px 56px 80px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(45,212,191,0.08);
+}
+
+.p2-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(13,148,136,0.08) 0%, transparent 60%);
+}
+
+.p2-sup {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--teal-glow);
+  opacity: 0.6;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.p2-sup::before {
+  content: '';
+  width: 32px; height: 1px;
+  background: var(--teal-glow);
+  opacity: 0.4;
+}
+
+.p2-title {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 1.0;
+  color: var(--white);
+  max-width: 700px;
+  margin-bottom: 28px;
+}
+
+.p2-title em {
+  font-style: italic;
+  color: var(--teal-glow);
+  text-shadow: 0 0 60px rgba(45,212,191,0.25);
+}
+
+.p2-desc {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+/* VENUES */
+.venues {
+  padding: 80px 56px;
+}
+
+.v-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.vc {
+  background: rgba(7,13,26,0.8);
+  border: 1px solid rgba(45,212,191,0.08);
+  padding: 32px 28px;
+  display: block;
+  text-decoration: none;
+  transition: all 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+
+.vc::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(45,212,191,0.04) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+
+.vc:hover {
+  border-color: rgba(45,212,191,0.25);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 30px rgba(45,212,191,0.05);
+}
+
+.vc:hover::after { opacity: 1; }
+
+.vc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 8.5px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 18px;
+}
+
+.vc-badge.mem { background: rgba(13,148,136,0.15); color: var(--teal-glow); border: 1px solid rgba(45,212,191,0.2); }
+.vc-badge.dis { background: rgba(244,113,90,0.1); color: #F4A490; border: 1px solid rgba(244,113,90,0.2); }
+.vc-badge.ped { background: rgba(167,139,250,0.1); color: var(--lavender); border: 1px solid rgba(167,139,250,0.2); }
+.vc-badge.men { background: rgba(245,200,66,0.08); color: #F5D878; border: 1px solid rgba(245,200,66,0.15); }
+.vc-badge.sen { background: rgba(200,216,232,0.06); color: var(--fog); border: 1px solid rgba(200,216,232,0.12); }
+
+.vc-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse-dot 2.5s ease-in-out infinite;
+}
+
+.mem .vc-dot { background: var(--teal-glow); box-shadow: 0 0 6px var(--teal-glow); }
+.dis .vc-dot { background: #F4A490; box-shadow: 0 0 6px #F4A490; }
+.ped .vc-dot { background: var(--lavender); box-shadow: 0 0 6px var(--lavender); }
+.men .vc-dot { background: #F5D878; box-shadow: 0 0 6px #F5D878; }
+.sen .vc-dot { background: var(--fog); box-shadow: 0 0 6px var(--fog); }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.7); }
+}
+
+.vc-name {
+  font-family: 'Gilda Display', serif;
+  font-size: 19px;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.vc-why {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 14px;
+}
+
+.vc-neuro {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--teal-glow);
+  opacity: 0.5;
+  margin-bottom: 18px;
+}
+
+.vc-link {
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(45,212,191,0.35);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(45,212,191,0.1);
+  padding-bottom: 2px;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.vc-link:hover { color: var(--teal-glow); border-color: var(--teal-glow); }
+
+/* PHASES */
+.phases {
+  padding: 80px 56px;
+  position: relative;
+}
+
+.phases::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(167,139,250,0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.phase-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 52px;
+}
+
+.pc {
+  border: 1px solid rgba(45,212,191,0.08);
+  padding: 40px 32px;
+  position: relative;
+  overflow: hidden;
+  background: rgba(7,13,26,0.5);
+  transition: border-color 0.3s;
+}
+
+.pc:hover { border-color: rgba(45,212,191,0.18); }
+
+.pc-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.pc:nth-child(1) .pc-glow { background: linear-gradient(to right, transparent, var(--teal-glow), transparent); }
+.pc:nth-child(2) .pc-glow { background: linear-gradient(to right, transparent, var(--coral), transparent); }
+.pc:nth-child(3) .pc-glow { background: linear-gradient(to right, transparent, var(--lavender), transparent); }
+
+.pc-when {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.pc-n {
+  font-family: 'Gilda Display', serif;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  margin-bottom: 8px;
+}
+
+.pc:nth-child(1) .pc-n { color: var(--teal-glow); }
+.pc:nth-child(2) .pc-n { color: var(--coral); }
+.pc:nth-child(3) .pc-n { color: var(--lavender); }
+
+.pc-title {
+  font-family: 'Gilda Display', serif;
+  font-size: 24px;
+  color: var(--white);
+  margin-bottom: 24px;
+  line-height: 1.1;
+}
+
+.pc-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.pc-items li {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  font-weight: 300;
+  padding-left: 16px;
+  position: relative;
+}
+
+.pc-items li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: rgba(45,212,191,0.3);
+}
+
+/* CLOSING */
+.closing {
+  margin: 0 56px 80px;
+  background: linear-gradient(135deg, rgba(13,148,136,0.1) 0%, rgba(13,30,61,0.4) 60%, rgba(167,139,250,0.08) 100%);
+  border: 1px solid rgba(45,212,191,0.12);
+  padding: 80px 72px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closing::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; right: -80px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%);
+}
+
+.cl-statement {
+  font-family: 'Gilda Display', serif;
+  font-size: clamp(26px, 3vw, 40px);
+  line-height: 1.25;
+  color: var(--white);
+}
+
+.cl-statement em {
+  font-style: italic;
+  color: var(--teal-glow);
+}
+
+.cl-statement p {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(14px, 1.4vw, 17px);
+  font-style: italic;
+  color: var(--muted);
+  font-weight: 300;
+  margin-top: 20px;
+  line-height: 1.7;
+}
+
+.cl-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.cl-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-left: 20px;
+  border-left: 1px solid rgba(45,212,191,0.15);
+}
+
+.cl-n {
+  font-family: 'Gilda Display', serif;
+  font-size: 42px;
+  color: var(--teal-glow);
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(45,212,191,0.25);
+}
+
+.cl-d {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .hero { padding: 60px 28px 40px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+  .neuro, .how, .venues, .phases { padding: 60px 28px; }
+  .origin, .closing { margin: 0 28px 60px; padding: 48px 32px; grid-template-columns: 1fr; gap: 40px; }
+  .neuro-top { grid-template-columns: 1fr; gap: 32px; }
+  .neuro-grid { grid-template-columns: 1fr 1fr; }
+  .how-flow { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .how-flow::before { display: none; }
+  .v-grid { grid-template-columns: 1fr; }
+  .phase-cards { grid-template-columns: 1fr; }
+  .p2-hero { padding: 60px 28px; }
+  .foot { padding: 20px 28px; }
+  .wave-div { padding: 0 28px; }
+  .ticker { margin-top: 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Neural network canvas -->
+<canvas id="neural-canvas"></canvas>
+
+<nav>
+  <div class="wordmark">TAP</div>
+  <div class="tabs">
+    <button class="tab active" onclick="go(1,this)">The Project</button>
+    <button class="tab" onclick="go(2,this)">Venues & Vision</button>
+  </div>
+</nav>
+
+<!-- ═══════════════════ PAGE 1 ═══════════════════ -->
+<div class="page active" id="page1">
+
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="h-eyebrow">San Diego · Est. 2026 · Del Norte HS</div>
+        <div class="h-title">
+          The<br>
+          <em>Acoustic</em><br>
+          <span class="ghost">Project</span>
+        </div>
+        <div class="h-sub">Student musicians delivering live acoustic performance to communities where music changes the brain — and the room.</div>
+        <div class="h-tags">
+          <span class="htag">Live Performance</span>
+          <span class="htag">Neuroscience-Informed</span>
+          <span class="htag">Community Impact</span>
+          <span class="htag">Student-Founded</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="glow-card">
+          <div class="gc-label">The Gap</div>
+          <div class="gc-title">Student musicians have no real stages.</div>
+          <div class="gc-body">Most play once a year at a recital — graded, evaluated, artificial. Meanwhile, senior centers, hospitals, and care facilities are full of people who rarely experience live music. TAP closes both gaps simultaneously.</div>
+        </div>
+        <div class="glow-card">
+          <div class="gc-label">The Mission</div>
+          <div class="gc-title">Live music as neurological intervention.</div>
+          <div class="gc-body">Every performance decision — venue selection, audience type, setlist, tempo — is informed by what neuroscience says music does to the brain. This isn't community service dressed up. It's intentional delivery of a documented neurological benefit.</div>
+        </div>
+        <div class="glow-card">
+          <div class="gc-label">Founded By</div>
+          <div class="gc-title">Anika Seksaria & Emily Rinderknecht</div>
+          <div class="gc-body">Two 9th graders at Del Norte High School. Started with a cold email to a senior center. Got a yes within days. Now booking recurring gigs and building a model that scales to any student musician in San Diego.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hb-stat">
+        <div class="hb-num">2×</div>
+        <div class="hb-desc">Monthly gigs at founding venue</div>
+      </div>
+      <div class="hb-div"></div>
+      <div class="hb-stat">
+        <div class="hb-num">4</div>
+        <div class="hb-desc">Target neurological populations</div>
+      </div>
+      <div class="hb-div"></div>
+      <div class="hb-stat">
+        <div class="hb-num">9th</div>
+        <div class="hb-desc">Grade when it started</div>
+      </div>
+      <div class="hb-div"></div>
+      <div class="hb-stat">
+        <div class="hb-num">0</div>
+        <div class="hb-desc">School assignments. Entirely self-initiated.</div>
+      </div>
+    </div>
+
+    <!-- Ambient wave -->
+    <svg class="hero-wave" viewBox="0 0 1440 180" preserveAspectRatio="none">
+      <path d="M0,90 C180,140 360,40 540,90 C720,140 900,40 1080,90 C1260,140 1350,60 1440,90 L1440,180 L0,180 Z" fill="rgba(45,212,191,1)"/>
+    </svg>
+  </div>
+
+  <!-- NEURO -->
+  <div class="neuro">
+    <div class="neuro-top">
+      <div>
+        <div class="section-label">
+          <span class="sl-line"></span>
+          <span class="sl-text">Why Neuroscience</span>
+        </div>
+        <div class="neuro-headline">Music &<br><em>the Mind</em></div>
+      </div>
+      <div class="neuro-intro">
+        TAP doesn't perform randomly. Every venue is chosen because neuroscience documents what live acoustic music does to that specific population — which neural pathways it activates, which symptoms it alleviates, which connections it restores. The performance is the delivery mechanism. The science is the rationale.
+      </div>
+    </div>
+
+    <div class="neuro-grid">
+      <div class="np">
+        <div class="np-icon teal">🧠</div>
+        <div class="np-head">Memory & Dementia</div>
+        <div class="np-body">Musical memory is stored in a separate neural region from other memory — it survives deeper into cognitive decline than almost anything else. Familiar songs reach people who can no longer recognize their own family.</div>
+        <div class="np-tag">Hippocampal independence</div>
+      </div>
+      <div class="np">
+        <div class="np-icon coral">🎵</div>
+        <div class="np-head">Autism & Development</div>
+        <div class="np-body">Music reduces anxiety and improves social communication in children with developmental disabilities. It activates mirror neuron systems and social bonding pathways that other stimuli don't reach.</div>
+        <div class="np-tag">Mirror neuron activation</div>
+      </div>
+      <div class="np">
+        <div class="np-icon gold">⚡</div>
+        <div class="np-head">Parkinson's & Motor</div>
+        <div class="np-body">Rhythmic auditory stimulation is a documented clinical technique for Parkinson's patients — rhythm from music helps regulate motor control. TAP's setlist choices for motor-affected audiences reflect this directly.</div>
+        <div class="np-tag">Rhythmic auditory stimulation</div>
+      </div>
+      <div class="np">
+        <div class="np-icon lav">💜</div>
+        <div class="np-head">Mental Health</div>
+        <div class="np-body">Live music reduces cortisol and triggers dopamine release. Shared musical experience creates neural synchrony — during live performance, the brains of audience members literally synchronize with each other.</div>
+        <div class="np-tag">Neural oscillatory coupling</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WAVE -->
+  <div class="wave-div">
+    <svg viewBox="0 0 1200 60" preserveAspectRatio="none" height="60">
+      <g stroke="rgba(45,212,191,0.6)" fill="none" stroke-width="1">
+        <path d="M0,30 Q30,5 60,30 Q90,55 120,30 Q150,5 180,30 Q210,55 240,30 Q270,5 300,30 Q330,55 360,30 Q390,5 420,30 Q450,55 480,30 Q510,5 540,30 Q570,55 600,30 Q630,5 660,30 Q690,55 720,30 Q750,5 780,30 Q810,55 840,30 Q870,5 900,30 Q930,55 960,30 Q990,5 1020,30 Q1050,55 1080,30 Q1110,5 1140,30 Q1170,55 1200,30"/>
+        <path d="M0,30 Q30,15 60,30 Q90,45 120,30 Q150,15 180,30 Q210,45 240,30 Q270,15 300,30 Q330,45 360,30 Q390,15 420,30 Q450,45 480,30 Q510,15 540,30 Q570,45 600,30 Q630,15 660,30 Q690,45 720,30 Q750,15 780,30 Q810,45 840,30 Q870,15 900,30 Q930,45 960,30 Q990,15 1020,30 Q1050,45 1080,30 Q1110,15 1140,30 Q1170,45 1200,30" opacity="0.3"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- HOW -->
+  <div class="how">
+    <div class="section-label">
+      <span class="sl-line"></span>
+      <span class="sl-text">Process</span>
+      <span class="sl-title">How It Works</span>
+    </div>
+    <div class="how-flow">
+      <div class="hf-step">
+        <div class="hf-dot"></div>
+        <div class="hf-n">Step 01</div>
+        <div class="hf-title">Identify the Audience</div>
+        <div class="hf-body">TAP targets populations where neuroscience documents the highest music impact — dementia patients, children with disabilities, mental health communities, rehabilitation patients. Venue selection is intentional, not opportunistic.</div>
+      </div>
+      <div class="hf-step">
+        <div class="hf-dot"></div>
+        <div class="hf-n">Step 02</div>
+        <div class="hf-title">Book the Stage</div>
+        <div class="hf-body">Direct outreach to venues. TAP handles all logistics — scheduling, orientation, health clearances — from scratch. Every venue follows the same template that got ActivCare on a monthly schedule.</div>
+      </div>
+      <div class="hf-step">
+        <div class="hf-dot"></div>
+        <div class="hf-n">Step 03</div>
+        <div class="hf-title">Perform with Intention</div>
+        <div class="hf-body">30–45 minute acoustic sets. Setlists built around the specific audience — familiar songs for memory care, rhythmic pieces for motor-affected patients, gentle tempos for anxiety. Every decision is informed.</div>
+      </div>
+      <div class="hf-step">
+        <div class="hf-dot"></div>
+        <div class="hf-n">Step 04</div>
+        <div class="hf-title">Document & Return</div>
+        <div class="hf-body">Every performance is photographed, filmed, and logged. Audience reactions, coordinator feedback, what worked — all tracked. TAP builds recurring relationships, not one-off visits.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ORIGIN -->
+  <div class="origin">
+    <div>
+      <div class="origin-label">How It Started</div>
+      <div class="origin-title">One cold email.<br>One yes.<br><em>A monthly stage.</em></div>
+      <div class="origin-body">
+        TAP started with a question that had no good answer: where do student musicians actually get to perform — not compete, not audition, just play for real people in a real place?<br><br>
+        The first outreach went to ActivCare Senior Living in 2026. Two 9th graders asked if they could bring acoustic music to residents. The activities coordinator responded within days — not with a single slot, but with an invitation onto the monthly schedule. Orientation paperwork, health clearances — all handled by the founders themselves. That became the proof of concept. And the template for every venue that follows.
+      </div>
+    </div>
+    <div class="quote-glass">
+      <div class="qt">"What a giving heart you two have. Wonderful — I'd love to have you both on our monthly schedule."</div>
+      <div class="qa">— Eunice Wenger · ActivCare Senior Living · San Diego</div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-inner">
+      <span>Memory Care</span><span class="dot">◆</span>
+      <span>Senior Centers</span><span class="dot">◆</span>
+      <span>Children's Hospitals</span><span class="dot">◆</span>
+      <span>Autism Programs</span><span class="dot">◆</span>
+      <span>Mental Health</span><span class="dot">◆</span>
+      <span>Rehabilitation</span><span class="dot">◆</span>
+      <span>Community Events</span><span class="dot">◆</span>
+      <span>Farmer's Markets</span><span class="dot">◆</span>
+      <span>Libraries</span><span class="dot">◆</span>
+      <span>Holiday Events</span><span class="dot">◆</span>
+      <span>Memory Care</span><span class="dot">◆</span>
+      <span>Senior Centers</span><span class="dot">◆</span>
+      <span>Children's Hospitals</span><span class="dot">◆</span>
+      <span>Autism Programs</span><span class="dot">◆</span>
+      <span>Mental Health</span><span class="dot">◆</span>
+      <span>Rehabilitation</span><span class="dot">◆</span>
+      <span>Community Events</span><span class="dot">◆</span>
+      <span>Farmer's Markets</span><span class="dot">◆</span>
+      <span>Libraries</span><span class="dot">◆</span>
+      <span>Holiday Events</span><span class="dot">◆</span>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-name">The Acoustic Project</div>
+    <div class="foot-detail">Del Norte HS · San Diego, CA · 2026</div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════ PAGE 2 ═══════════════════ -->
+<div class="page" id="page2">
+
+  <div class="p2-hero">
+    <div class="p2-sup">Venues & Vision</div>
+    <div class="p2-title">Where<br><em>TAP</em><br>Performs</div>
+    <div class="p2-desc">Every venue was chosen because neuroscience says live music matters most there — populations where a 30-minute acoustic set creates documented neurological benefit. That's the standard TAP holds itself to.</div>
+  </div>
+
+  <div class="venues">
+    <div class="section-label">
+      <span class="sl-line"></span>
+      <span class="sl-text">Target Venues</span>
+      <span class="sl-title">Real Places. Real Links.</span>
+    </div>
+    <div class="v-grid">
+
+      <a class="vc" href="https://www.alzsd.org" target="_blank">
+        <div class="vc-badge mem"><span class="vc-dot"></span>Memory Care</div>
+        <div class="vc-name">Alzheimer's San Diego</div>
+        <div class="vc-why">Runs music-centered wellness programs specifically for dementia patients. TAP's most mission-aligned partner. Actively accepts community performance volunteers.</div>
+        <div class="vc-neuro">↳ Musical memory survives late-stage cognitive decline</div>
+        <div class="vc-link">alzsd.org →</div>
+      </a>
+
+      <a class="vc" href="https://www.alz.org/sandiego" target="_blank">
+        <div class="vc-badge mem"><span class="vc-dot"></span>Memory Care</div>
+        <div class="vc-name">Alzheimer's Association SD</div>
+        <div class="vc-why">National chapter with local staff and programming. Runs Walk to End Alzheimer's and community events — performance partnership opportunities available.</div>
+        <div class="vc-neuro">↳ Familiar music triggers preserved emotional memory</div>
+        <div class="vc-link">alz.org/sandiego →</div>
+      </a>
+
+      <a class="vc" href="https://www.arc-sd.com/getinvolved/volunteer/" target="_blank">
+        <div class="vc-badge dis"><span class="vc-dot"></span>Disability</div>
+        <div class="vc-name">The Arc of San Diego</div>
+        <div class="vc-why">One of SD's largest disability nonprofits. Explicitly lists music performance as a volunteer role. Multiple locations across the county — one contact, many sites.</div>
+        <div class="vc-neuro">↳ Music activates social bonding in developmental disabilities</div>
+        <div class="vc-link">arc-sd.com →</div>
+      </a>
+
+      <a class="vc" href="https://servingseniors.org/get-involved/volunteer.html" target="_blank">
+        <div class="vc-badge sen"><span class="vc-dot"></span>Senior</div>
+        <div class="vc-name">Serving Seniors San Diego</div>
+        <div class="vc-why">Serves 400+ low-income seniors daily across multiple congregate dining sites. Lists music and activities as volunteer opportunities — one email, multiple venues unlocked.</div>
+        <div class="vc-neuro">↳ Live music reduces isolation-driven cortisol in seniors</div>
+        <div class="vc-link">servingseniors.org →</div>
+      </a>
+
+      <a class="vc" href="https://radyfoundation.org/get-involved/volunteer/opportunities/" target="_blank">
+        <div class="vc-badge ped"><span class="vc-dot"></span>Pediatric</div>
+        <div class="vc-name">Rady Children's Hospital</div>
+        <div class="vc-why">SD's only dedicated children's hospital. Has existing volunteer arts programs. Long-term pediatric patients experience measurable anxiety reduction from live music. Applications reopen May 2025.</div>
+        <div class="vc-neuro">↳ Music reduces procedural anxiety in pediatric patients</div>
+        <div class="vc-link">radyfoundation.org →</div>
+      </a>
+
+      <a class="vc" href="https://villamusica.org/volunteer/" target="_blank">
+        <div class="vc-badge mem"><span class="vc-dot"></span>Memory Care</div>
+        <div class="vc-name">Villa Musica — Musical Biographies</div>
+        <div class="vc-why">Partners directly with UCSD's Alzheimer's Disease Research Center on music-memory programs. High school students are explicitly welcome for event support.</div>
+        <div class="vc-neuro">↳ UCSD-partnered music + dementia research program</div>
+        <div class="vc-link">villamusica.org →</div>
+      </a>
+
+      <a class="vc" href="https://www.rchsd.org/programs-services/alexas-playc/get-involved/volunteer/" target="_blank">
+        <div class="vc-badge dis"><span class="vc-dot"></span>Disability</div>
+        <div class="vc-name">Rady Children's — Autism Discovery Institute</div>
+        <div class="vc-why">Always open for volunteers. Music-based interaction is documented to improve communication and reduce anxiety in autistic children. TAP's neuro rationale fits directly.</div>
+        <div class="vc-neuro">↳ Music improves social cognition in autism spectrum</div>
+        <div class="vc-link">rchsd.org →</div>
+      </a>
+
+      <a class="vc" href="https://www.nami.org/Support-Education/NAMI-HelpLine" target="_blank">
+        <div class="vc-badge men"><span class="vc-dot"></span>Mental Health</div>
+        <div class="vc-name">NAMI San Diego</div>
+        <div class="vc-why">National Alliance on Mental Illness, local chapter. Runs community programming where live music's dopamine and cortisol effects are directly applicable to recovery communities.</div>
+        <div class="vc-neuro">↳ Live music triggers dopamine, reduces cortisol</div>
+        <div class="vc-link">nami.org →</div>
+      </a>
+
+      <a class="vc" href="https://centerforworldmusic.org/access-to-arts-for-seniors/" target="_blank">
+        <div class="vc-badge sen"><span class="vc-dot"></span>Senior</div>
+        <div class="vc-name">Center for World Music</div>
+        <div class="vc-why">SD-based program delivering live music to 16+ senior communities. A potential partnership rather than solo outreach — collaborate and expand reach significantly faster.</div>
+        <div class="vc-neuro">↳ Possible partnership to scale TAP's senior reach</div>
+        <div class="vc-link">centerforworldmusic.org →</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="phases">
+    <div class="section-label">
+      <span class="sl-line"></span>
+      <span class="sl-text">Roadmap</span>
+      <span class="sl-title">Three Phases</span>
+    </div>
+    <div class="phase-cards">
+      <div class="pc">
+        <div class="pc-glow"></div>
+        <div class="pc-when">Now → Summer 2026</div>
+        <div class="pc-n">Phase One</div>
+        <div class="pc-title">Prove the Model</div>
+        <ul class="pc-items">
+          <li>Lock ActivCare recurring gig (Tuesdays & Saturdays)</li>
+          <li>Book 3 additional neuroscience-aligned venues</li>
+          <li>Complete 10–15 performances before sophomore year</li>
+          <li>Recruit 2–3 more student musicians</li>
+          <li>Build documented impact: video, quotes, reactions</li>
+          <li>Grow social media with real performance content</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <div class="pc-glow"></div>
+        <div class="pc-when">Fall 2026 · Sophomore Year</div>
+        <div class="pc-n">Phase Two</div>
+        <div class="pc-title">Official Club</div>
+        <ul class="pc-items">
+          <li>Launch as official Del Norte school club</li>
+          <li>20–30 student musicians and organizers</li>
+          <li>Dedicated roles: performers, events, media, outreach</li>
+          <li>3–4 gigs per month across venue types</li>
+          <li>First merch — identity, community, revenue seed</li>
+          <li>Pursue Alzheimer's Association sponsorship</li>
+        </ul>
+      </div>
+      <div class="pc">
+        <div class="pc-glow"></div>
+        <div class="pc-when">2026 and Beyond</div>
+        <div class="pc-n">Phase Three</div>
+        <div class="pc-title">City-Wide Infrastructure</div>
+        <ul class="pc-items">
+          <li>50+ musicians in the TAP network</li>
+          <li>Formal nonprofit or fiscal sponsorship</li>
+          <li>GigMatch platform — profiles, scheduling, tracking</li>
+          <li>Revenue: tips, paid gigs, grants, sponsorships</li>
+          <li>Formal partnerships with Rady, Arc, Alzheimer's SD</li>
+          <li>TAP as infrastructure, not just a club</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="cl-statement">
+      Student musicians.<br>
+      Real stages.<br>
+      Brains that<br>
+      <em>need it most.</em>
+      <p>TAP started as one email to one senior center. The goal is every community in San Diego that could benefit from live music — and can't access it on their own.</p>
+    </div>
+    <div class="cl-stats">
+      <div class="cl-stat">
+        <div class="cl-n">2×</div>
+        <div class="cl-d">monthly performances at founding venue — Tuesdays & Saturdays at ActivCare</div>
+      </div>
+      <div class="cl-stat">
+        <div class="cl-n">4</div>
+        <div class="cl-d">neurologically distinct populations TAP specifically targets</div>
+      </div>
+      <div class="cl-stat">
+        <div class="cl-n">9th</div>
+        <div class="cl-d">grade. Built from scratch with no template, no budget, no precedent.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div class="foot-name">The Acoustic Project</div>
+    <div class="foot-detail">Del Norte HS · San Diego, CA · 2026</div>
+  </div>
+
+</div>
+
+<script>
+// ─── PAGE SWITCHING ───
+function go(n, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('page' + n).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─── NEURAL NETWORK CANVAS ───
+const canvas = document.getElementById('neural-canvas');
+const ctx = canvas.getContext('2d');
+
+let nodes = [];
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initNodes() {
+  nodes = [];
+  const count = Math.floor((W * H) / 22000);
+  for (let i = 0; i < count; i++) {
+    nodes.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 2 + 1,
+      pulse: Math.random() * Math.PI * 2,
+      speed: 0.008 + Math.random() * 0.012
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  const t = Date.now() * 0.001;
+
+  // Update
+  nodes.forEach(n => {
+    n.x += n.vx;
+    n.y += n.vy;
+    n.pulse += n.speed;
+    if (n.x < 0 || n.x > W) n.vx *= -1;
+    if (n.y < 0 || n.y > H) n.vy *= -1;
+  });
+
+  // Connections
+  const maxDist = 160;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      const a = nodes[i], b = nodes[j];
+      const dx = a.x - b.x, dy = a.y - b.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < maxDist) {
+        const alpha = (1 - dist / maxDist) * 0.18;
+        const pulse = (Math.sin(a.pulse) + 1) / 2;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(45,212,191,${alpha * (0.5 + pulse * 0.5)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+
+  // Nodes
+  nodes.forEach(n => {
+    const pulse = (Math.sin(n.pulse) + 1) / 2;
+    const alpha = 0.3 + pulse * 0.5;
+    const glow = n.r * (2 + pulse * 3);
+
+    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, glow);
+    grad.addColorStop(0, `rgba(45,212,191,${alpha})`);
+    grad.addColorStop(1, 'rgba(45,212,191,0)');
+
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, glow, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r * 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${alpha * 0.8})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(draw);
+}
+
+resize();
+initNodes();
+draw();
+window.addEventListener('resize', () => { resize(); initNodes(); });
+</script>
+</body>
+</html>

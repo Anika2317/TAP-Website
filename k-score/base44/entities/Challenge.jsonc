@@ -1,0 +1,62 @@
+{
+  "name": "Challenge",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Challenge title"
+    },
+    "description": {
+      "type": "string",
+      "description": "What the user needs to do"
+    },
+    "target_skill": {
+      "type": "string",
+      "enum": [
+        "logic",
+        "empathy",
+        "discipline",
+        "emotional_regulation",
+        "integrity"
+      ],
+      "description": "Skill this challenge develops"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "description": "Challenge difficulty"
+    },
+    "time_commitment": {
+      "type": "string",
+      "description": "Time needed (e.g., '5 minutes', '1 hour')"
+    },
+    "science_backing": {
+      "type": "string",
+      "description": "Brief explanation of the science behind it"
+    },
+    "curriculum_level": {
+      "type": "number",
+      "default": 1,
+      "description": "Which curriculum level this belongs to (1-10)"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 20,
+      "description": "XP earned for completing"
+    },
+    "score_reward": {
+      "type": "number",
+      "default": 5,
+      "description": "Points added to target skill"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "target_skill"
+  ]
+}

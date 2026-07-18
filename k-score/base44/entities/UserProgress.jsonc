@@ -1,0 +1,197 @@
+{
+  "name": "UserProgress",
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string",
+      "description": "User's chosen display name for leaderboard"
+    },
+    "k_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Overall K-Score (0-1000)"
+    },
+    "logic_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Logic dimension score (0-200)"
+    },
+    "empathy_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Empathy dimension score (0-200)"
+    },
+    "discipline_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Discipline dimension score (0-200)"
+    },
+    "emotional_regulation_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Emotional regulation dimension score (0-200)"
+    },
+    "integrity_score": {
+      "type": "number",
+      "default": 0,
+      "description": "Integrity dimension score (0-200)"
+    },
+    "level": {
+      "type": "number",
+      "default": 1,
+      "description": "Current XP level"
+    },
+    "xp": {
+      "type": "number",
+      "default": 0,
+      "description": "Experience points in current level"
+    },
+    "curriculum_level": {
+      "type": "number",
+      "default": 1,
+      "description": "Current curriculum level (1-10)"
+    },
+    "streak_days": {
+      "type": "number",
+      "default": 0,
+      "description": "Current streak in days"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Last activity date for streak tracking"
+    },
+    "completed_dilemmas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of completed dilemmas"
+    },
+    "completed_lessons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of completed lessons"
+    },
+    "completed_challenges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "IDs of completed challenges"
+    },
+    "achievements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Unlocked achievement IDs"
+    },
+    "following": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Emails of users this user is following"
+    },
+    "daily_lessons_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "daily_lessons_count": {
+      "type": "number",
+      "default": 0
+    },
+    "daily_dilemmas_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "daily_dilemmas_count": {
+      "type": "number",
+      "default": 0
+    },
+    "daily_challenges_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "daily_challenges_count": {
+      "type": "number",
+      "default": 0
+    },
+    "lesson_reflections": {
+      "type": "array",
+      "description": "Saved reflections for completed lessons",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lesson_id": {
+            "type": "string"
+          },
+          "reflection": {
+            "type": "string"
+          },
+          "depth_label": {
+            "type": "string"
+          },
+          "completed_at": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "dilemma_analyses": {
+      "type": "array",
+      "description": "Saved analyses for completed dilemmas",
+      "items": {
+        "type": "object",
+        "properties": {
+          "dilemma_id": {
+            "type": "string"
+          },
+          "profile_label": {
+            "type": "string"
+          },
+          "profile_desc": {
+            "type": "string"
+          },
+          "top_skill_label": {
+            "type": "string"
+          },
+          "philosophy_counts": {
+            "type": "object"
+          },
+          "skill_totals": {
+            "type": "object"
+          },
+          "completed_at": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {},
+    "update": {
+      "created_by": "{{user.email}}"
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

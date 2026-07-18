@@ -1,0 +1,89 @@
+{
+  "name": "Dilemma",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Dilemma title"
+    },
+    "scenario": {
+      "type": "string",
+      "description": "The ethical scenario description"
+    },
+    "choices": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "philosopher": {
+            "type": "string"
+          },
+          "philosophy": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          },
+          "score_impacts": {
+            "type": "object",
+            "properties": {
+              "logic": {
+                "type": "number"
+              },
+              "empathy": {
+                "type": "number"
+              },
+              "discipline": {
+                "type": "number"
+              },
+              "emotional_regulation": {
+                "type": "number"
+              },
+              "integrity": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      },
+      "description": "Available choices with philosopher perspectives"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "personal",
+        "professional",
+        "social",
+        "existential"
+      ],
+      "description": "Category of dilemma"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ],
+      "description": "Difficulty level"
+    },
+    "curriculum_level": {
+      "type": "number",
+      "default": 1,
+      "description": "Which curriculum level this belongs to (1-10)"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 10,
+      "description": "XP earned for completing"
+    }
+  },
+  "required": [
+    "title",
+    "scenario",
+    "choices"
+  ]
+}

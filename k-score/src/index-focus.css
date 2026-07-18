@@ -1,0 +1,74 @@
+/* High-contrast focus indicators for accessibility */
+/* Imported in main index.css */
+
+/* Global focus styles for interactive elements */
+*:focus-visible {
+  outline: 3px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+/* Enhanced focus for buttons */
+button:focus-visible,
+[role="button"]:focus-visible {
+  outline: 3px solid hsl(160 84% 39%);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(160 84% 39% / 0.2);
+}
+
+/* Enhanced focus for links */
+a:focus-visible {
+  outline: 3px solid hsl(160 84% 39%);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(160 84% 39% / 0.2);
+}
+
+/* Enhanced focus for form inputs */
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[role="combobox"]:focus-visible,
+[role="textbox"]:focus-visible {
+  outline: 3px solid hsl(160 84% 39%);
+  outline-offset: 0;
+  border-color: hsl(160 84% 39%);
+  box-shadow: 0 0 0 4px hsl(160 84% 39% / 0.2);
+}
+
+/* Tab triggers and navigation items */
+[role="tab"]:focus-visible,
+[role="tablist"] button:focus-visible {
+  outline: 3px solid hsl(160 84% 39%);
+  outline-offset: -2px;
+  box-shadow: 0 0 0 4px hsl(160 84% 39% / 0.2);
+}
+
+/* Cards and interactive containers */
+[role="button"]:focus-visible,
+.cursor-pointer:focus-visible {
+  outline: 3px solid hsl(160 84% 39%);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px hsl(160 84% 39% / 0.2);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  *:focus-visible {
+    outline-width: 4px;
+    outline-offset: 3px;
+  }
+  
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible {
+    box-shadow: 0 0 0 6px hsl(160 84% 39% / 0.3);
+  }
+}
+
+/* iOS WebView specific adjustments */
+@supports (-webkit-touch-callout: none) {
+  button:focus-visible,
+  a:focus-visible {
+    outline-width: 4px;
+  }
+}
