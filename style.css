@@ -543,8 +543,6 @@ footer p {
 }
 
 .social-links a {
-    color: white;
-    background: rgba(255,255,255,0.1);
     width: 50px; height: 50px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 50%;
@@ -552,7 +550,6 @@ footer p {
 }
 
 .social-links a:hover {
-    background: var(--accent-gold);
     transform: translateY(-5px) scale(1.15) rotate(360deg);
 }
 
