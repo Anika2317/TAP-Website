@@ -1,0 +1,24 @@
+{
+    "id": "30B19A64",
+    "path": "~/bibliometrics_week1/02_data_import.R",
+    "project_path": null,
+    "type": "r_source",
+    "hash": "2294454888",
+    "contents": "",
+    "dirty": false,
+    "created": 1785792135985.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1781754024,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1781754024,
+    "read_only": false,
+    "read_only_alternatives": []
+}

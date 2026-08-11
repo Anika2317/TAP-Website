@@ -35,7 +35,7 @@ model_summary <- data %>%
 ggplot(model_summary, aes(x=model, y=mean_DGI, fill=model)) +
   geom_col(width=0.5, show.legend=FALSE) +
   geom_errorbar(aes(ymin=mean_DGI-1.96*se, ymax=mean_DGI+1.96*se), width=0.2) +
-  labs(title="Figure 1. Mean DGI by AI Model", x="AI Model", y="Mean DGI (95% CI)") +
+  labs(title="Mean DGI by AI Model", x="AI Model", y="Mean DGI (95% CI)") +
   theme_classic()
 ggsave("figure1_model_DGI.png", dpi=300, width=6, height=5)
 
@@ -47,7 +47,12 @@ status_summary <- data %>%
 ggplot(status_summary, aes(x=identity_status, y=mean_DGI, fill=identity_status)) +
   geom_col(width=0.5, show.legend=FALSE) +
   geom_errorbar(aes(ymin=mean_DGI-1.96*se, ymax=mean_DGI+1.96*se), width=0.2) +
-  labs(title="Figure 2. Mean DGI by Identity Status", x="Identity Status", y="Mean DGI (95% CI)") +
+  labs(title="Mean DGI by Identity Status", x="Identity Status", y="Mean DGI (95% CI)") +
   theme_classic()
 ggsave("figure2_status_DGI.png", dpi=300, width=6, height=5)
 
+class(data)
+head(data)
+aggregate(DGI ~ model, data=data, FUN=sd)
+aggregate(DGI ~ identity_status, data=data, FUN=sd)
+aggregate(DGI ~ identity_status, data=data, FUN=sd)

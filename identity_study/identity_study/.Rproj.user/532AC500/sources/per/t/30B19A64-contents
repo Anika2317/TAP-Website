@@ -1,0 +1,39 @@
+
+library(bibliometrix)
+
+file_path <- "data/sample_export.bib"
+
+bibliographic_df <- convert2df(
+  file = file_path,
+  dbsource = "scopus",
+  format = "bibtex"
+)
+dim(bibliographic_df)
+# [1]  3 21
+head(bibliographic_df, n = 3)
+
+colnames(bibliographic_df)
+
+bibliographic_df$TI # Print all paper titles
+bibliographic_df$AU # Print all author strings
+bibliographic_df$PY # Publication Year
+# [1] 2020 2021 2022
+range(bibliographic_df$PY, na.rm = TRUE)
+# [1] 2020 2022
+
+
+dim(bibliographic_df)
+# Output explanation: The first number (N = 3) represents the number of documents (rows). 
+# The second number (M) represents the number of metadata variables (columns).
+
+bibliographic_df$PY
+range(bibliographic_df$PY, na.rm = TRUE)
+# Explanation: The range function returns '2020 2022', meaning the oldest 
+# paper was published in 2020 and the newest in 2022.
+
+
+bibliographic_df$SO
+# Explanation: Accessing the SO column prints the journal names: "Nature Climate Change", 
+# "PLOS Computational Biology", and "IEEE Transactions on Biomedical Engineering".
+
+

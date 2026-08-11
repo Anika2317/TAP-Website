@@ -1,0 +1,13 @@
+# 1. Load the library (assuming it's already installed)
+library(ggplot2)
+
+# 2. Create the data frame cleanly with all closing brackets
+papers <- data.frame(
+  year = c(2019, 2020, 2021, 2022, 2023, 2024, 2025),
+  citations = c(5, 18, 35, 52, 70, 20, 44)
+)
+
+# 3. Print the data frame to the console
+papers
+
+ggplot(papers, aes(x = year, y = citations)) + geom_bar(stat = "identity")
