@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Acoustic Project | TAP</title>
+    <link rel="icon" type="image/png" href="logo1.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        @media screen and (max-width: 768px) {
+            body, #app, .nav-container {
+                position: relative;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mouse-glow"></div>
+
+    <nav id="navbar">
+        <div class="nav-container">
+            <img src="logo.png" alt="TAP Logo" class="logo" data-target="home" style="max-height: 40px; width: auto; cursor: pointer;">
+            <ul class="nav-links">
+                <li><a href="#" data-target="home" class="active">Home</a></li>
+                <li><a href="#" data-target="services">TAP Services</a></li>
+                <li><a href="#" data-target="performances">Performances</a></li>
+                <li><a href="#" data-target="talks">TAP Talks</a></li>
+                <li><a href="https://medium.com/@theacousticproject.sd" target="_blank" class="external-link">TAP Journal</a></li>
+                <li><a href="#" data-target="dedications">Dedications</a></li>
+                <li><a href="#" data-target="chapter-relations">Chapter Relations</a></li>
+                <li><a href="#" data-target="about">About Us</a></li>
+            </ul>
+            <div class="hamburger">
+                <i data-lucide="menu"></i>
+            </div>
+        </div>
+    </nav>
+
+    <main id="app">
+        
+        <section id="home" class="page active">
+            <div class="hero">
+                <canvas id="waveCanvas"></canvas>
+                <div class="hero-content reveal glass-panel">
+                    <h1>Music & Mind <br>
+                        <span id="typewriter" class="gradient-text">The Acoustic Project</span>
+                    </h1>
+                    <div class="subtitle mt-3">
+                        <p>The Acoustic Project (TAP) is a student-led initiative using music to explore the mind, foster connection, and create meaningful community impact.</p>
+                        <br>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container section-padding reveal">
+                <div class="home-intro-grid">
+                    <div class="intro-card interactive-card">
+                        <div class="intro-image">
+                            <img src="perform.png" alt="TAP Performance" onerror="this.src='https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="intro-text glass-panel">
+                            <h3 class="gradient-text">Who We Are</h3>
+                            <p> A student led initiative with a musical background and an interest in showcasing the bridge between music and the mind. </p>
+                        </div>
+                    </div>
+                    
+                    <div class="intro-card interactive-card">
+                        <div class="intro-image">
+                            <img src="wedo.png" alt="TAP Community" onerror="this.src='https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'">
+                        </div>
+                        <div class="intro-text glass-panel">
+                            <h3 class="gradient-text-gold">What We Do</h3>
+                            <p>We perform live acoustic sets, host public awareness events, and curate a digital journal of musical memories shared directly by our community.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">TAP Services</h2>
+                <p class="section-desc reveal">What TAP actually does in the community.</p>
+                
+                <div class="pillars-grid reveal">
+                    <div class="pillar-card interactive-card border-gradient">
+                        <i data-lucide="mic-2"></i>
+                        <h3>TAP Performances</h3>
+                        <p>Recurring live acoustic performances to communities that support the mind and well-being across San Diego.</p>
+                    </div>
+                    <div class="pillar-card interactive-card border-gradient">
+                        <i data-lucide="users"></i>
+                        <h3>TAP Initiatives</h3>
+                        <p>Our awareness initiatives use music to encourage conversations about brain health, memory, and wellbeing through community outreach, musical experiences, and educational engagement.</p>
+                    </div>
+                    <div class="pillar-card interactive-card border-gradient">
+                        <i data-lucide="book-open"></i>
+                        <h3>TAP Journal</h3>
+                        <p>Our journal exploring the intersection of music, neuroscience, and human experience through research insights, scientific discoveries, and reflections on how music influences memory, emotion, and cognition.</p>
+                    </div>
+                    <div class="pillar-card interactive-card border-gradient">
+                        <i data-lucide="heart"></i>
+                        <h3>TAP Dedications</h3>
+                        <p>A program where community members submit a song and the memory behind it. We showcase these moments to share what they mean to our community.</p>
+                    </div>
+                    <div class="pillar-card interactive-card border-gradient">
+                        <i data-lucide="message-circle"></i>
+                        <h3>TAP Talks</h3>
+                        <p>Interactive, accessible presentations on music and the brain delivered at libraries and community centers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="performances" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">Performances & Initiatives</h2>
+                <p class="section-desc reveal">Taking the science of sound directly into the community.</p>
+                
+                <div class="grid-2 reveal">
+                    <div class="text-block">
+                        <h3>Our Venues</h3>
+                        <p>We partner with local healthcare facilities to bring recurring acoustic sets to patients and residents. Our current locations include:</p>
+                        <ul class="styled-list">
+                            <li><strong>ActivCare Senior Living, 4S Ranch</strong> </li>
+                        </ul>
+                        
+                        <h3 class="mt-5">Community Initiatives</h3>
+                        <p>Our awareness initiatives focus on using music as a platform to promote understanding of the connection between music, the brain, and overall wellbeing. These initiatives may include community-based musical experiences, outreach efforts, and opportunities for individuals to engage with the role music plays in memory, emotion, and human connection.
+</p>
+                    </div>
+                    <div class="founders-card interactive-card glass-panel border-gradient">
+                        <h3>Want TAP at your facility?</h3>
+                        <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">We are always looking to partner with new locations and spaces. Reach out to schedule a performance or initiative.</p>
+                        <img src="perform1.png" alt="TAP Performance" style="width: 100%; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="talks" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">TAP Talks</h2>
+                <div class="grid-2 reveal">
+                    <div class="text-block">
+                        <p>TAP Talks are short presentations on music and the brain, delivered at libraries, community centers, and public events. </p>
+                        <p>Topics we cover include:</p>
+                        <ul class="styled-list mb-5">
+                            <li>How music affects memory in Alzheimer's patients.</li>
+                            <li>Music and Memory: How Songs Shape the Way We Remember</li>
+                            <li>The Brain’s Reward System: Why Music Feels Good</li>
+                        </ul>
+
+                        <h3>Recent Talks</h3>
+                        <div class="content-grid">
+                            <div class="content-card interactive-card glass-panel border-gradient">
+                                <h4 class="gradient-text">Watch Now!</h4>
+                                <span class="date">4s Ranch Library</span>
+                                <p>The Sound of Emotion</p>
+                                <a href="https://www.youtube.com/channel/UCEkUx_-jdUSJXD9clpz6tbQ" target="_blank" class="btn-video mt-3">
+                                    <i data-lucide="play-circle"></i> Watch Presentation
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="founders-card interactive-card glass-panel border-gradient">
+                        <h3>Host a Talk</h3>
+                        <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">Are you a local library, school, or community center? We are actively booking TAP Talks for the upcoming season to share the science of sound with the public.</p>
+                        <img src="talk.png" alt="TAP Talk" style="width: 100%; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="dedications" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">TAP Dedications</h2>
+                <p class="section-desc reveal">Submit a song and the memory behind it. We showcase these important musical moments on our <a href="https://www.instagram.com/dnhs_tap/" target="_blank" class="gradient-text" style="font-weight:bold;">Instagram</a> to share what they mean to our community, and may perform it at a future performance.</p>
+                
+                <div class="form-container interactive-card glass-panel reveal border-gradient">
+                    <form action="https://api.web3forms.com/submit" method="POST">
+                        
+                        <input type="hidden" name="access_key" value="1789372e-b094-472d-8650-1db8f71808a8">
+                        
+                        <input type="hidden" name="subject" value="New TAP Dedication Submission">
+                        <input type="checkbox" name="botcheck" style="display: none;">
+                        
+                        <div class="form-group">
+                            <label>Your Name (Optional)</label>
+                            <input type="text" name="name" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label>Song Title & Artist</label>
+                            <input type="text" name="song" placeholder="" required>
+                        </div>
+                        <div class="form-group">
+                            <label>The Memory Behind the Song</label>
+                            <textarea name="memory" rows="4" placeholder="Share why this song is meaningful to you or who you are dedicating it to..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Dedication</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter-relations" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal" style="text-align: center; display: block; margin-bottom: 1rem;">Chapter Relations</h2>
+                <p class="section-desc reveal" style="text-align: center; margin: 0 auto 4rem auto; max-width: 800px;">As we grow, we are expanding our mission to different age groups and locations. Here are our current active chapters.</p>
+                
+                <div class="reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; margin-bottom: 5rem;">
+                    
+                    <div class="interactive-card glass-panel" style="padding: 3rem; border-top: 5px solid var(--accent-teal);">
+    <h3 class="gradient-text">High School Chapter</h3>
+    <p style="margin-top: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.8;">
+        Focused on exploring the connection between music, the mind, and community impact through leadership, education, and outreach. Initiatives include:
+    </p>
+    <ul class="styled-list" style="font-size: 0.95rem;">
+        <li><strong>Healthcare Performances:</strong> Bringing live acoustic sets to healthcare facilities to foster connection and well-being.</li>
+        <li><strong>Music & Brain Insights:</strong> Exploring the relationship between music, neuroscience, and mental well-being.</li>
+        <li><strong>Community Outreach:</strong> Developing initiatives that use music to create awareness, storytelling, and meaningful connections.</li>
+        <li><strong>Music & Mind Campaigns:</strong> Sharing educational content about how music influences emotions, memory, and cognition.</li>
+        <li><strong>Student Leadership:</strong> Empowering students to lead projects and expand TAP’s mission within their communities.</li>
+    </ul>
+</div>
+
+                    <div class="interactive-card glass-panel" style="padding: 3rem; border-top: 5px solid var(--accent-gold);">
+                        <h3 class="gradient-text">Middle School Chapter</h3>
+                        <p style="margin-top: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.8;">Focused on music creation, storytelling, and community outreach for a younger age group. Initiatives include:</p>
+                        <ul class="styled-list" style="font-size: 0.95rem;">
+                            <li><strong>Sound Map:</strong> Turning classmate feelings into acoustic pieces.</li>
+                            <li><strong>Music & Experiments:</strong> Exploring tempo, dynamics, and emotions.</li>
+                            <li><strong>Mini Picture Books:</strong> Song-inspired stories for hospital patients.</li>
+                            <li><strong>Music & Mind Cards:</strong> Calming cards with acoustic QR codes.</li>
+                            <li><strong>Song of the Month:</strong> A newsletter bridging art, story, and sound.</li>
+                            <li><strong>Audio Series:</strong> Live library performances and podcasts.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="form-container interactive-card glass-panel border-gradient reveal" style="max-width: 650px; margin: 0 auto; text-align: center; padding: 4rem 3rem;">
+                    <h3>Interested in starting? Connect with us!</h3>
+                    <p style="margin-top: 15px; color: var(--text-muted); font-size: 1.05rem;">
+                        <strong>Requirements:</strong> Musical passion, dedication to community outreach, and an interest in bridging cognitive science with sound.
+                    </p>
+                    <p style="margin-bottom: 30px; font-size: 1.05rem;">
+                        Email us directly: <a href="mailto:theacousticproject.sd@gmail.com" class="gradient-text" style="font-weight:bold;">theacousticproject.sd@gmail.com</a>
+                    </p>
+                    
+                    <a href="https://forms.gle/qc52ogfLmnxntBCQ7" target="_blank" class="btn-primary" style="display: inline-block; width: 100%; text-align: center; box-sizing: border-box; text-decoration: none;">Apply to Start a Chapter</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page">
+            <div class="container section-padding">
+                <h2 class="section-title reveal">About Us</h2>
+                <div class="grid-2 reveal">
+                    <div class="text-block">
+                        <h3>Our Theme & Mission</h3>
+                        <p>The Acoustic Project believes in the profound connection between music and the human mind. </p>
+                        <p>Our work is about intentional connection. We believe in the power of music to unite communities, enrich well-being, and deepen our understanding of the human experience.</p>
+                    </div>
+                    <div class="founders-card interactive-card glass-panel border-gradient">
+                        <h3>The Team</h3>
+                        <div class="founder-profiles">
+                            <div class="founder-profile">
+                                <img src="Anika.png" alt="Anika Seksaria" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Anika+Seksaria&background=8FBC8F&color=fff'">
+                                <div>
+                                    <h4>Anika Seksaria</h4>
+                                    <span>Founder</span>
+                                </div>
+                            </div>
+                            <div class="founder-profile">
+                                <img src="emily.png" alt="Emily Rinderknecht" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Emily+Rinderknecht&background=DAA520&color=fff'">
+                                <div>
+                                    <h4>Emily Rinderknecht</h4>
+                                    <span>Advisor</span>
+                                </div>
+                            </div>
+                            <div class="founder-profile">
+                                <img src="triya.png" alt="Triya Muralikrishnan" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Triya+Muralikrishnan&background=8FBC8F&color=fff'">
+                                <div>
+                                    <h4>Triya Muralikrishnan</h4>
+                                    <span>TAP Talk Lead</span>
+                                </div>
+                            </div>
+                            <div class="founder-profile">
+                                <img src="ria.png" alt="Ria Kotta" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Ria+Kotta&background=DAA520&color=fff'">
+                                <div>
+                                    <h4>Ria Kotta</h4>
+                                    <span>TAP Journal Lead</span>
+                                </div>
+                            </div>
+                            <div class="founder-profile">
+                                <img src="maleesha.png" alt="Maleesha Weerakkody" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Maleesha+Weerakkody&background=8FBC8F&color=fff'">
+                                <div>
+                                    <h4>Maleesha Weerakkody</h4>
+                                    <span>TAP Initiative Lead</span>
+                                </div>
+                            </div>
+                            <div class="founder-profile">
+                                <img src="megha.png" alt="Megha Vulupala" class="founder-img" onerror="this.src='https://ui-avatars.com/api/?name=Megha+Vulupala&background=DAA520&color=fff'">
+                                <div>
+                                    <h4>Megha Vulupala</h4>
+                                    <span>TAP Performance Lead</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h2>TAP</h2>
+                <p>The Acoustic Project | Del Norte High School | San Diego, CA</p>
+                <div class="social-links mt-5">
+                    <a href="https://www.instagram.com/dnhs_tap/" target="_blank"><img src="insta.png" alt="Instagram" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></a>
+                    <a href="https://www.youtube.com/channel/UCEkUx_-jdUSJXD9clpz6tbQ" target="_blank"><img src="youtube.png" alt="YouTube" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
