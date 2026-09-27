@@ -56,7 +56,7 @@
                 </div>
             </div>
 
-            <!-- Stats Ribbon -->
+            <!-- Stats Ribbon: placed outside the reveal classes so it's always visible -->
             <div style="background-color: #8FBC8F; width: 90%; max-width: 1000px; margin: 3rem auto 4rem auto; padding: 2.5rem 1rem; display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.25); position: relative; z-index: 999;">
                 <div style="text-align: center; flex: 1; min-width: 200px;">
                     <h3 style="margin: 0; font-size: 2.8rem; font-weight: 800; color: #ffffff; font-family: 'Inter', sans-serif;">100+</h3>
@@ -144,18 +144,18 @@
                         <ul class="styled-list">
                             <li><strong>ActivCare Senior Living, 4S Ranch</strong> </li>
                         </ul>
-                        
-                        <img src="guitara.png" alt="TAP Venue" style="width: 100%; margin-top: 25px; margin-bottom: 25px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                        <!-- Adjusted styles to enforce visibility -->
+                        <img src="guitara.png" alt="TAP Venue" style="display: block; width: 100%; max-width: 100%; height: auto; margin-top: 25px; margin-bottom: 25px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); visibility: visible; opacity: 1; z-index: 10; position: relative;">
                         
                         <h3 class="mt-5">Community Initiatives</h3>
                         <p>Our awareness initiatives focus on using music as a platform to promote understanding of the connection between music, the brain, and overall wellbeing. These initiatives may include community-based musical experiences, outreach efforts, and opportunities for individuals to engage with the role music plays in memory, emotion, and human connection.</p>
-                        
-                        <img src="guitare.png" alt="TAP Initiative" style="width: 100%; margin-top: 25px; margin-bottom: 25px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                        <!-- Adjusted styles to enforce visibility -->
+                        <img src="guitare.png" alt="TAP Initiative" style="display: block; width: 100%; max-width: 100%; height: auto; margin-top: 25px; margin-bottom: 25px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); visibility: visible; opacity: 1; z-index: 10; position: relative;">
                     </div>
                     <div class="founders-card interactive-card glass-panel border-gradient">
                         <h3>Want TAP at your community?</h3>
                         <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">We are always looking to partner with new locations and spaces. Reach out to schedule a performance or initiative.</p>
-                        <img src="perform1.png" alt="TAP Performance" style="width: 100%; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                        <img src="perform1.png" alt="TAP Performance" style="display: block; width: 100%; height: auto; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                     <div class="founders-card interactive-card glass-panel border-gradient">
                         <h3>Host a Talk</h3>
                         <p style="margin-top: 15px; color: var(--text-muted); font-size: 0.95rem;">Are you a local library, school, or community center? We are actively booking TAP Talks for the upcoming season to share the science of sound with the public.</p>
-                        <img src="talk.png" alt="TAP Talk" style="width: 100%; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
+                        <img src="talk.png" alt="TAP Talk" style="display: block; width: 100%; height: auto; margin-top: 20px; border-radius: 12px; border: 2px solid rgba(255, 255, 255, 0.5); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);">
                     </div>
                 </div>
             </div>
@@ -334,6 +334,7 @@
 
     </main>
 
+    <!-- Narrowed down the footer width drastically to make it smaller as requested -->
     <footer style="max-width: 350px; margin: 3rem auto; padding: 2rem; border-radius: 20px; overflow: hidden; box-sizing: border-box; text-align: center;">
         <div class="container" style="padding: 0;">
             <div class="footer-content" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
