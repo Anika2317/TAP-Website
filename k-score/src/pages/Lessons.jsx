@@ -6,8 +6,7 @@ import { Loader2, CheckCircle2, Lock, ChevronDown } from 'lucide-react';
 import SearchAndFilter from '@/components/shared/SearchAndFilter';
 import LessonCard from '@/components/lessons/LessonCard';
 import LessonModal from '@/components/lessons/LessonModal';
-import LevelProgressBar from '@/components/curriculum/LevelProgressBar';
-import { computeCurriculumLevel, isGlobalLevelUnlocked } from '@/components/curriculum/curriculumUtils';
+import { computeCurriculumLevel } from '@/components/curriculum/curriculumUtils';
 import { computeKScore } from '@/lib/progressUtils';
 import DailyLimitBanner from '@/components/shared/DailyLimitBanner';
 import { isAtDailyLimit, buildDailyCountUpdate, getDailyCount, DAILY_LIMIT } from '@/components/shared/dailyLimit';
@@ -299,7 +298,7 @@ export default function Lessons() {
   return (
     <ScrollView className="min-h-screen">
       <div className="bg-background">
-        <div className="max-w-lg mx-auto px-4 pt-6 pb-24">
+        <div className="max-w-lg mx-auto px-4 pt-6 pb-32">
 
           {/* Header */}
           <div className="flex items-center justify-between mb-5">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Quote, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ArrowRight } from 'lucide-react';
 
 export default function DailyAffirmation({ affirmation }) {
   if (!affirmation) return null;
@@ -9,36 +10,45 @@ export default function DailyAffirmation({ affirmation }) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.4 }}
-      className="relative overflow-hidden rounded-3xl bg-card p-6 border border-border"
+      transition={{ delay: 0.3 }}
+      className="relative overflow-hidden rounded-3xl bg-card p-6 border border-border shadow-sm"
     >
-      <div className="absolute top-4 right-4">
-        <Sparkles className="w-5 h-5 text-emerald-500" />
-      </div>
-      
-      <div className="flex items-start gap-3 mb-4">
-        <div className="p-2 rounded-xl bg-emerald-100 dark:bg-emerald-950">
-          <Quote className="w-4 h-4 text-emerald-700" />
-        </div>
-        <div>
-          <h3 className="font-semibold text-foreground">Today's Affirmation</h3>
-          <p className="text-xs text-emerald-700 capitalize">{affirmation.target_skill?.replace('_', ' ')}</p>
-        </div>
-      </div>
+      <span
+        className="absolute -top-6 right-3 font-display text-[9rem] leading-none text-primary/10 select-none pointer-events-none"
+        aria-hidden="true"
+      >
+        &ldquo;
+      </span>
 
-      <p className="text-lg font-medium text-foreground leading-relaxed mb-4">
-        "{affirmation.text}"
-      </p>
-
-      {affirmation.science_note && (
-        <p className="text-sm text-muted-foreground italic">
-          {affirmation.science_note}
+      <div className="relative">
+        <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          Today&rsquo;s affirmation
+          {affirmation.target_skill && (
+            <span className="text-primary"> · {affirmation.target_skill.replaceAll('_', ' ')}</span>
+          )}
         </p>
-      )}
 
-      {affirmation.source && (
-        <p className="text-xs text-emerald-600 mt-2">— {affirmation.source}</p>
-      )}
+        <p className="font-display text-[1.35rem] font-normal text-foreground leading-snug mt-3 mb-4">
+          {affirmation.text}
+        </p>
+
+        {affirmation.science_note && (
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {affirmation.science_note}
+          </p>
+        )}
+
+        {affirmation.source && (
+          <p className="text-xs text-muted-foreground mt-3">— {affirmation.source}</p>
+        )}
+
+        <Link
+          to="/Affirmations"
+          className="inline-flex items-center gap-1 mt-4 text-sm font-medium text-primary hover:gap-2 transition-all"
+        >
+          More affirmations <ArrowRight className="w-4 h-4" />
+        </Link>
+      </div>
     </motion.div>
   );
 }

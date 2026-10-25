@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NeuroLiterate — Brain Literacy for a Changing World</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400;1,9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f0f4ff;
+    --white: #ffffff;
+    --ink: #1a1a2e;
+    --mid: #5a607a;
+
+    /* Neuroscience brain system colors */
+    --synapse-blue: #4361ee;      /* electric / attention */
+    --plasticity-teal: #06b6a4;   /* growth / learning */
+    --memory-violet: #7c3aed;     /* memory / storage */
+    --emotion-amber: #f59e0b;     /* emotion signals */
+    --alarm-coral: #f43f5e;       /* amygdala / reaction */
+
+    /* Soft fills */
+    --blue-soft: #eef1ff;
+    --teal-soft: #e0faf8;
+    --violet-soft: #ede9fe;
+    --amber-soft: #fef9ec;
+    --coral-soft: #fff0f3;
+
+    --border: #dde3f4;
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ─── ANIMATED BACKGROUND BLOBS ─── */
+  .bg-blobs {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: blobDrift 20s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 600px; height: 600px; background: var(--synapse-blue); top: -200px; left: -100px; animation-delay: 0s; }
+  .blob-2 { width: 500px; height: 500px; background: var(--plasticity-teal); top: 40%; right: -150px; animation-delay: -7s; }
+  .blob-3 { width: 400px; height: 400px; background: var(--memory-violet); bottom: -100px; left: 30%; animation-delay: -14s; }
+  @keyframes blobDrift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(40px, 30px) scale(1.08); }
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    box-shadow: 0 4px 24px rgba(67,97,238,0.1);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-logo-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--synapse-blue);
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { transform: scale(1); opacity:1; } 50% { transform: scale(1.4); opacity:0.7; } }
+
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--mid);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.2px;
+  }
+  .nav-links a:hover { color: var(--synapse-blue); }
+
+  .nav-cta {
+    background: var(--synapse-blue);
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    padding: 9px 20px;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(67,97,238,0.4); }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 40px 80px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--blue-soft);
+    border: 1px solid rgba(67,97,238,0.2);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--synapse-blue);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards 0.1s;
+  }
+
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.2s;
+  }
+  .hero-title em {
+    font-style: italic;
+    background: linear-gradient(120deg, var(--synapse-blue), var(--plasticity-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--mid);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards 0.35s;
+  }
+
+  /* Three brain cards row */
+  .hero-cards {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.5s;
+  }
+
+  .hero-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    border: 2px solid transparent;
+    text-align: left;
+    width: 220px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .hero-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+  .hero-card.c-blue { border-color: rgba(67,97,238,0.25); }
+  .hero-card.c-teal { border-color: rgba(6,182,164,0.25); }
+  .hero-card.c-violet { border-color: rgba(124,58,237,0.25); }
+
+  .hero-card-emoji { font-size: 28px; margin-bottom: 12px; display: block; }
+  .hero-card h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; color: var(--ink); }
+  .hero-card p { font-size: 12.5px; color: var(--mid); line-height: 1.5; font-weight: 600; }
+
+  .hero-btns {
+    display: flex;
+    gap: 14px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards 0.65s;
+  }
+  .btn-primary {
+    background: var(--synapse-blue);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px rgba(67,97,238,0.4); }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    padding: 15px 30px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 800;
+    text-decoration: none;
+    border: 2px solid var(--border);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--synapse-blue); background: var(--blue-soft); }
+
+  /* ─── SECTION WRAPPER ─── */
+  .section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .section-full {
+    position: relative;
+    z-index: 1;
+    padding: 100px 60px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .chip-blue { background: var(--blue-soft); color: var(--synapse-blue); }
+  .chip-teal { background: var(--teal-soft); color: #0d9488; }
+  .chip-violet { background: var(--violet-soft); color: var(--memory-violet); }
+
+  .section-h {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+  }
+  .section-h em { font-style: italic; color: var(--synapse-blue); }
+
+  .section-p {
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--mid);
+    font-weight: 600;
+    max-width: 600px;
+  }
+
+  /* ─── WHAT IT MEANS ─── */
+  .meaning-section { background: var(--white); }
+  .meaning-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .meaning-visual {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .meaning-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg);
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s;
+  }
+  .meaning-row:hover { transform: translateX(6px); }
+
+  .meaning-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .mi-blue { background: var(--blue-soft); }
+  .mi-teal { background: var(--teal-soft); }
+  .mi-violet { background: var(--violet-soft); }
+  .mi-amber { background: var(--amber-soft); }
+  .mi-coral { background: var(--coral-soft); }
+
+  .meaning-row-text h4 { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
+  .meaning-row-text p { font-size: 12.5px; color: var(--mid); font-weight: 600; }
+
+  .arrow-connector {
+    text-align: center;
+    font-size: 20px;
+    color: var(--border);
+    margin: -6px 0;
+  }
+
+  /* ─── ALISHA STORY FRAME ─── */
+  .story-section { background: var(--bg); }
+
+  .story-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    border: 2px solid var(--border);
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    align-items: start;
+    margin-top: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  }
+
+  .alisha-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--synapse-blue), var(--plasticity-teal));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+
+  .story-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .story-card .story-subtitle {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--synapse-blue);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .story-card p {
+    font-size: 15px;
+    color: var(--mid);
+    line-height: 1.7;
+    font-weight: 600;
+  }
+  .story-card p + p { margin-top: 12px; }
+
+  .story-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .story-tag {
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 100px;
+  }
+  .tag-blue { background: var(--blue-soft); color: var(--synapse-blue); }
+  .tag-teal { background: var(--teal-soft); color: #0d9488; }
+  .tag-coral { background: var(--coral-soft); color: #e11d48; }
+
+  /* ─── CURRICULUM ─── */
+  .curriculum-section { background: var(--white); }
+
+  .days-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .day-card {
+    border-radius: 24px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .day-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
+
+  .day-card.day1 { border-color: rgba(67,97,238,0.3); }
+  .day-card.day2 { border-color: rgba(6,182,164,0.3); }
+
+  .day-header {
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .day-header.h1 { background: linear-gradient(135deg, #eef1ff, #dde6ff); }
+  .day-header.h2 { background: linear-gradient(135deg, #e0faf8, #b5f0eb); }
+
+  .day-num {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .dn1 { color: var(--synapse-blue); }
+  .dn2 { color: #0d9488; }
+
+  .day-emoji-big { font-size: 40px; margin-left: auto; }
+
+  .day-header-text h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .day-body { background: white; padding: 28px 32px; }
+
+  .day-big-idea {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border-left: 4px solid;
+  }
+  .dbi1 { background: var(--blue-soft); border-color: var(--synapse-blue); color: var(--synapse-blue); }
+  .dbi2 { background: var(--teal-soft); border-color: var(--plasticity-teal); color: #0d9488; }
+
+  .concept-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .concept-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+  .concept-pill .cp-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .dot-blue { background: var(--synapse-blue); }
+  .dot-teal { background: var(--plasticity-teal); }
+  .dot-violet { background: var(--memory-violet); }
+  .dot-amber { background: var(--emotion-amber); }
+  .dot-coral { background: var(--alarm-coral); }
+
+  .day-activity-label {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 10px;
+  }
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+  .activity-item {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--mid);
+    border: 1px solid var(--border);
+  }
+
+  .takeaway-pill {
+    border-radius: 14px;
+    padding: 18px 22px;
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+  }
+  .tp1 { background: var(--ink); color: var(--white); }
+  .tp2 { background: var(--plasticity-teal); color: white; }
+
+  /* ─── BRAIN SYSTEMS ─── */
+  .systems-section { background: var(--bg); }
+  .systems-section .section-full { max-width: 1200px; margin: 0 auto; }
+
+  .systems-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .system-card {
+    background: white;
+    border-radius: 20px;
+    padding: 28px 22px;
+    text-align: center;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .system-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+
+  .sc-blue { border-color: rgba(67,97,238,0.2); }
+  .sc-teal { border-color: rgba(6,182,164,0.2); }
+  .sc-violet { border-color: rgba(124,58,237,0.2); }
+  .sc-amber { border-color: rgba(245,158,11,0.2); }
+  .sc-coral { border-color: rgba(244,63,94,0.2); }
+
+  .system-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .system-card h4 {
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  .system-card p {
+    font-size: 12px;
+    color: var(--mid);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .core-message {
+    background: var(--ink);
+    color: white;
+    border-radius: 24px;
+    padding: 48px;
+    text-align: center;
+    margin-top: 48px;
+  }
+  .core-message p {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .core-message p em {
+    font-style: normal;
+    background: linear-gradient(120deg, var(--synapse-blue), var(--plasticity-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+  }
+
+  /* ─── WHY IT MATTERS ─── */
+  .why-section { background: white; }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .why-card {
+    border-radius: 20px;
+    padding: 32px;
+    border: 2px solid var(--border);
+    transition: transform 0.3s;
+  }
+  .why-card:hover { transform: translateY(-4px); }
+  .wc1 { background: var(--blue-soft); border-color: rgba(67,97,238,0.2); }
+  .wc2 { background: var(--teal-soft); border-color: rgba(6,182,164,0.2); }
+  .wc3 { background: var(--amber-soft); border-color: rgba(245,158,11,0.2); }
+  .wc4 { background: var(--violet-soft); border-color: rgba(124,58,237,0.2); }
+
+  .why-card-emoji { font-size: 32px; margin-bottom: 16px; display: block; }
+  .why-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .why-card p {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.65;
+    font-weight: 600;
+  }
+
+  /* ─── STATS STRIP ─── */
+  .stats-strip {
+    background: linear-gradient(135deg, var(--synapse-blue) 0%, #3b82f6 40%, var(--plasticity-teal) 100%);
+    padding: 70px 60px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 52px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+  .stat-label { font-size: 14px; font-weight: 700; opacity: 0.85; }
+
+  /* ─── CONTACT ─── */
+  .contact-section {
+    background: var(--bg);
+    position: relative;
+    z-index: 1;
+  }
+  .contact-inner {
+    max-width: 560px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .contact-inner .section-h { margin-bottom: 12px; }
+  .contact-inner .section-p { margin: 0 auto 40px; }
+
+  .form-wrap {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    border: 2px solid var(--border);
+    box-shadow: 0 8px 32px rgba(67,97,238,0.08);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .form-wrap input,
+  .form-wrap select,
+  .form-wrap textarea {
+    width: 100%;
+    padding: 13px 18px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--bg);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-wrap input::placeholder,
+  .form-wrap textarea::placeholder { color: rgba(90,96,122,0.5); }
+  .form-wrap input:focus,
+  .form-wrap select:focus,
+  .form-wrap textarea:focus {
+    border-color: var(--synapse-blue);
+    background: white;
+  }
+  .form-wrap textarea { height: 110px; resize: vertical; }
+  .form-wrap select { appearance: none; cursor: pointer; }
+
+  .form-submit {
+    background: var(--synapse-blue);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(67,97,238,0.4); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    padding: 36px;
+    font-size: 13px;
+    font-weight: 600;
+    position: relative;
+    z-index: 1;
+  }
+  footer strong { color: rgba(255,255,255,0.8); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 960px) {
+    nav { gap: 20px; padding: 12px 20px; top: 10px; }
+    .nav-links { display: none; }
+    .hero { padding: 120px 24px 60px; }
+    .hero-cards { flex-direction: column; align-items: center; }
+    .hero-card { width: 100%; max-width: 340px; }
+    .section, .section-full { padding: 72px 24px; }
+    .meaning-inner { grid-template-columns: 1fr; }
+    .days-container { grid-template-columns: 1fr; }
+    .systems-grid { grid-template-columns: repeat(2, 1fr); }
+    .why-grid { grid-template-columns: 1fr; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); padding: 48px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span class="nav-logo-dot"></span> NeuroLiterate</a>
+  <ul class="nav-links">
+    <li><a href="#meaning">What It Is</a></li>
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="#systems">Brain Systems</a></li>
+    <li><a href="#contact">Partner With Us</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Book a Workshop →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">🧠 Free Workshops · Del Norte High School · San Diego</div>
+  <h1 class="hero-title"><em> BrainLiterate</em><br></h1>
+  <p class="hero-sub">Youth workshops for understanding brain literacy for a changing world.</p>
+
+  <div class="hero-cards">
+    <div class="hero-card c-blue">
+      <span class="hero-card-emoji">⚡</span>
+      <h3>Understanding the brain</h3>
+      <p>Your brain is constantly deciding what you notice, feel, and remember.</p>
+    </div>
+    <div class="hero-card c-teal">
+      <span class="hero-card-emoji">🔁</span>
+      <h3>The training Brain</h3>
+      <p>Practice physically rewires your neural pathways. You are always changing.</p>
+    
+    </div>
+  </div>
+
+  <div class="hero-btns">
+    <a href="#curriculum" class="btn-primary">See the Curriculum →</a>
+    <a href="#meaning" class="btn-outline">What is Brain Literacy?</a>
+  </div>
+</section>
+
+<!-- WHAT IT MEANS -->
+<section class="meaning-section section-full" id="meaning">
+  <div class="meaning-inner">
+    <div>
+      <div class="chip chip-blue reveal">📘 Core Idea</div>
+      <h2 class="section-h reveal"> <em>brain literacy</em> is understanding how meaning is made.</h2>
+      <p class="section-p reveal">Brain literacy helps youth understand the system that makes all thinking, feeling, and deciding possible — the brain itself.</p>
+      <br>
+      <p class="section-p reveal">Every day your brain controls what you notice, what you feel, and what you remember. NeuroLiterate emphasizes the importance of understanding the fundemental neuroscience of the brain.</p>
+   
+<!-- ALISHA STORY -->
+
+
+<section class="story-section section-full" id="story">
+  <div style="max-width:1200px; margin: 0 auto;">
+    <div class="chip chip-teal reveal">👤 Story Frame</div>
+    <h2 class="section-h reveal">Meet Alisha</h2>
+    <p class="section-p reveal">Every lesson follows Alisha, a relatable 11-year-old who sometimes reacts too fast, misreads situations, and struggles with learning. Through her story, neuroscience stops being abstract and becomes something kids recognize in themselves.</p>
+
+    <div class="story-card reveal">
+      <div class="alisha-avatar">🧒</div>
+      <div>
+      
+      
+        <p class="story-subtitle">Day 1 · The Reacting Brain</p>
+        <h3>Alisha doesn't understand why she snapped.</h3>
+        <p>During lunch, a friend makes a comment and Alisha reacts immediately — frustrated, defensive, already walking away before she's had a chance to think. She doesn't understand why. It just happened.</p>
+        <p>In today's lesson, Alisha learns that her amygdala — the brain's fast alarm system — fired before her prefrontal cortex could catch up. The reaction wasn't a character flaw. It was her brain doing exactly what it was built to do.</p>
+        <p>And knowing that? Changes everything about what she does next time.</p>
+        <div class="story-tags">
+          <span class="story-tag tag-coral">Amygdala</span>
+          <span class="story-tag tag-blue">Prefrontal Cortex</span>
+          <span class="story-tag tag-teal">Pause = Choice</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card reveal" style="margin-top:20px;">
+      <div class="alisha-avatar">🧒</div>
+      <div>
+        <p class="story-subtitle">Day 2 · The Learning Brain</p>
+        <h3>Alisha thinks she's just not smart at this.</h3>
+        <p>Alisha keeps getting the same math problem wrong. Everyone else seems to get it. She's told herself a story: she's just not a math person. That's fixed. That's who she is.</p>
+        <p>In today's lesson, Alisha discovers that every time she practices something — even when she gets it wrong — her neurons are physically building a stronger connection. The mistake isn't failure. It's the brain constructing the pathway.</p>
+        <p>She's not bad at math. She just hasn't practiced enough for the pathway to become fast yet.</p>
+        <div class="story-tags">
+          <span class="story-tag tag-teal">Neuroplasticity</span>
+          <span class="story-tag tag-blue">Myelination</span>
+          <span class="story-tag tag-teal">Growth = Effort</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section class="curriculum-section section-full" id="curriculum">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="chip chip-violet reveal">📅 2-Day Program</div>
+    <h2 class="section-h reveal">Two sessions. Two ideas that change how students see themselves.</h2>
+    <p class="section-p reveal">Each day delivers one core neuroscience concept through activities, real-life scenarios, and Alisha's story. Students leave with a mental model they'll actually use — not just on a test, but in their lives.</p>
+
+    <div class="days-container">
+      <!-- Day 1 -->
+      <div class="day-card day1 reveal">
+        <div class="day-header h1">
+          <div>
+            <div class="day-num dn1">Day One</div>
+            <div class="day-header-text"><h3>Why You React<br>Before You Think</h3></div>
+          </div>
+          <span class="day-emoji-big">⚡</span>
+        </div>
+        <div class="day-body">
+          <div class="day-big-idea dbi1">"My brain is always deciding what I notice, feel, and remember."</div>
+
+          <p class="day-activity-label">Brain Concepts</p>
+          <div class="concept-row">
+            <div class="concept-pill"><span class="cp-dot dot-coral"></span>Amygdala — fast alarm system</div>
+            <div class="concept-pill"><span class="cp-dot dot-blue"></span>Prefrontal Cortex — thinking & control</div>
+            <div class="concept-pill"><span class="cp-dot dot-violet"></span>Attention filter — not everything gets in</div>
+            <div class="concept-pill"><span class="cp-dot dot-amber"></span>Emotions as signals, not instructions</div>
+          </div>
+
+          <p class="day-activity-label">Activities</p>
+          <div class="activity-grid">
+            <div class="activity-item">🎮 Reaction speed games</div>
+            <div class="activity-item">🧪 Attention test experiments</div>
+            <div class="activity-item">💬 Emotion labeling scenarios</div>
+            <div class="activity-item">⏸ "Pause button" exercise</div>
+          </div>
+
+          <div class="takeaway-pill tp1">"Brain literacy means knowing your brain shapes what you notice."</div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div class="day-card day2 reveal reveal-delay-1">
+        <div class="day-header h2">
+          <div>
+            <div class="day-num dn2">Day Two</div>
+            <div class="day-header-text"><h3>How Your Brain<br>Gets Smarter</h3></div>
+          </div>
+          <span class="day-emoji-big">🔁</span>
+        </div>
+        <div class="day-body">
+          <div class="day-big-idea dbi2">"What I practice changes my brain."</div>
+
+          <p class="day-activity-label">Brain Concepts</p>
+          <div class="concept-row">
+            <div class="concept-pill"><span class="cp-dot dot-teal"></span>Neuroplasticity — brain changes with experience</div>
+            <div class="concept-pill"><span class="cp-dot dot-blue"></span>Neurons that fire together wire together</div>
+            <div class="concept-pill"><span class="cp-dot dot-violet"></span>Myelination — pathways get faster with practice</div>
+            <div class="concept-pill"><span class="cp-dot dot-amber"></span>Habit formation — automatic brain patterns</div>
+          </div>
+
+          <p class="day-activity-label">Activities</p>
+          <div class="activity-grid">
+            <div class="activity-item">📈 Before vs after skill challenges</div>
+            <div class="activity-item">🗺️ Habit mapping activity</div>
+            <div class="activity-item">✏️ Draw your brain pathways</div>
+            <div class="activity-item">🧠 Repetition improvement rounds</div>
+          </div>
+
+          <div class="takeaway-pill tp2">"I can get better at anything if I practice."</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRAIN SYSTEMS -->
+<section class="systems-section section-full" id="systems">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="chip chip-blue reveal">🧠 The Neuroscience</div>
+    <h2 class="section-h reveal">Real brain systems. Taught simply.</h2>
+    <p class="section-p reveal">Every concept in NeuroLiterate is grounded in established neuroscience — made accessible for kids without losing the science.</p>
+
+    <div class="systems-grid">
+      <div class="system-card sc-coral reveal">
+        <span class="system-icon">🚨</span>
+        <h4>Amygdala</h4>
+        <p>The fast alarm system. Fires before you can think. Controls fight-or-flight.</p>
+      </div>
+      <div class="system-card sc-blue reveal reveal-delay-1">
+        <span class="system-icon">🧠</span>
+        <h4>Prefrontal Cortex</h4>
+        <p>The thinking brain. Deliberates, plans, and controls impulses — but it's slower.</p>
+      </div>
+      <div class="system-card sc-violet reveal reveal-delay-1">
+        <span class="system-icon">💾</span>
+        <h4>Memory Systems</h4>
+        <p>Emotional and repeated experiences are stored differently than neutral ones.</p>
+      </div>
+      <div class="system-card sc-amber reveal reveal-delay-2">
+        <span class="system-icon">👁️</span>
+        <h4>Attention Filter</h4>
+        <p>The brain doesn't process everything — it selects, prioritizes, and ignores.</p>
+      </div>
+      <div class="system-card sc-teal reveal reveal-delay-2">
+        <span class="system-icon">🔁</span>
+        <h4>Neuroplasticity</h4>
+        <p>The brain's ability to physically change and rewire itself through experience.</p>
+      </div>
+    </div>
+
+    <div class="core-message reveal">
+      <p>"Your brain is not fixed. It is a system that <em>filters reality</em> and <em>rewires itself</em> through experience."</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY IT MATTERS -->
+<section class="why-section section-full" id="why">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="chip chip-teal reveal">🌍 Why It Matters</div>
+    <h2 class="section-h reveal">Kids are already living inside these systems. They just don't have the language for it.</h2>
+
+    <div class="why-grid">
+      <div class="why-card wc1 reveal">
+        <span class="why-card-emoji">⚡</span>
+        <h3>Reactions before thinking</h3>
+        <p>Most student conflicts escalate because no one understands why they reacted. The amygdala doesn't pause — but awareness creates the gap where choice lives.</p>
+      </div>
+      <div class="why-card wc2 reveal reveal-delay-1">
+        <span class="why-card-emoji">🔁</span>
+        <h3>"I'm just not good at this"</h3>
+        <p>Fixed mindset language tells kids intelligence is inherited. Neuroplasticity says otherwise. Once students understand this, they approach difficulty differently.</p>
+      </div>
+      <div class="why-card wc3 reveal">
+        <span class="why-card-emoji">😶‍🌫️</span>
+        <h3>Emotions they can't name</h3>
+        <p>Research shows students who can precisely label their emotions regulate them better. NeuroLiterate builds that emotional vocabulary from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="reveal">
+    <div class="stat-num">2</div>
+    <div class="stat-label">Core Brain Sessions</div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <div class="stat-num">45<span style="font-size:28px">min</span></div>
+    <div class="stat-label">Per Session</div>
+  </div>
+  <div class="reveal reveal-delay-2">
+    <div class="stat-num">Free</div>
+    <div class="stat-label">For Every School</div>
+  </div>
+  <div class="reveal reveal-delay-3">
+    <div class="stat-num">K–8</div>
+    <div class="stat-label">Age Range</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section section-full" id="contact">
+  <div class="contact-inner">
+    <div class="chip chip-blue reveal" style="margin: 0 auto 20px;">📩 Work With Us</div>
+    <h2 class="section-h reveal">Bring NeuroLiterate to your school.</h2>
+    <p class="section-p reveal">Sessions are completely free, require no setup, and fit into a single class period. We're scheduling for spring and fall 2026.</p>
+
+    <div class="form-wrap reveal">
+      <input type="text" placeholder="Your name" />
+      <input type="text" placeholder="School or organization" />
+      <input type="email" placeholder="Email address" />
+      <select>
+        <option value="" disabled selected>Grade level (select one)</option>
+        <option>K–2nd Grade</option>
+        <option>3rd–5th Grade</option>
+        <option>6th–8th Grade</option>
+        <option>Mixed / Whole School</option>
+      </select>
+      <textarea placeholder="Anything we should know? (optional)"></textarea>
+      <button class="form-submit" onclick="handleSubmit(this)">Send Workshop Request →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>NeuroLiterate</strong> — Brain literacy for a changing world &nbsp;·&nbsp; Founded by Anika Seksaria &nbsp;·&nbsp; Del Norte High School, San Diego CA
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Form submit
+  function handleSubmit(btn) {
+    btn.textContent = '✓ Request received! We\'ll be in touch.';
+    btn.style.background = '#06b6a4';
+    btn.disabled = true;
+  }
+</script>
+</body>
+</html>
+
+

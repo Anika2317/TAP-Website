@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   BookOpen, Flame, Scale, Target, Trophy, Crown, Zap, Map,
-  Award, Medal, Brain, Heart, Shield, Wind, Star, GraduationCap, X
+  Award, Medal, Brain, Heart, Shield, Wind, Star, GraduationCap
 } from 'lucide-react';
 import { BADGES, getUnlockedBadges, getLockedBadges } from '@/lib/badges';
 

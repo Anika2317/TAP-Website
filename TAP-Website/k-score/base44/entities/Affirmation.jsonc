@@ -1,0 +1,33 @@
+{
+  "name": "Affirmation",
+  "type": "object",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "The affirmation text"
+    },
+    "target_skill": {
+      "type": "string",
+      "enum": [
+        "logic",
+        "empathy",
+        "discipline",
+        "emotional_regulation",
+        "integrity"
+      ],
+      "description": "Skill this affirmation reinforces"
+    },
+    "science_note": {
+      "type": "string",
+      "description": "Brief note on the neuroscience behind it"
+    },
+    "source": {
+      "type": "string",
+      "description": "Thinker or research source"
+    }
+  },
+  "required": [
+    "text",
+    "target_skill"
+  ]
+}

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Brain, Trophy, Star, Sparkles } from 'lucide-react';
+import { Brain, Trophy, Star, Sparkles, ChevronRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function MEScoreCard({ progress }) {
@@ -70,7 +70,7 @@ export default function MEScoreCard({ progress }) {
             <motion.span
               initial={{ scale: 0.5 }}
               animate={{ scale: 1 }}
-              className="text-7xl font-bold tracking-tight text-yellow-100"
+              className="font-display tabular text-7xl font-medium tracking-tight text-yellow-100"
             >
               {MEScore}
             </motion.span>
@@ -87,48 +87,67 @@ export default function MEScoreCard({ progress }) {
     );
   }
 
+  const level = Math.min(curriculumLevel, 3);
+  const activities =
+    (progress?.completed_lessons?.length || 0) +
+    (progress?.completed_dilemmas?.length || 0) +
+    (progress?.completed_challenges?.length || 0);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 p-8 text-white"
+      className="relative overflow-hidden rounded-[1.75rem] bg-[#0d2b23] p-6 text-white shadow-[0_20px_50px_-24px_rgba(6,78,59,0.7)]"
     >
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-          className="absolute -top-1/2 -right-1/2 w-full h-full bg-gradient-to-br from-emerald-500/20 to-transparent rounded-full blur-3xl"
+          className="absolute -top-1/2 -right-1/3 w-full h-full bg-gradient-to-br from-emerald-400/30 to-transparent rounded-full blur-3xl"
         />
         <motion.div
           animate={{ rotate: -360 }}
           transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
-          className="absolute -bottom-1/2 -left-1/2 w-full h-full bg-gradient-to-tr from-sage-500/20 to-transparent rounded-full blur-3xl"
+          className="absolute -bottom-1/2 -left-1/3 w-full h-full bg-gradient-to-tr from-teal-300/15 to-transparent rounded-full blur-3xl"
         />
+        <div className="absolute inset-0 rounded-[1.75rem] ring-1 ring-inset ring-white/10" />
       </div>
 
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-white/10 backdrop-blur-sm">
-              <Brain className="w-6 h-6 text-emerald-300" />
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-xl bg-white/10 backdrop-blur-sm">
+              <Brain className="w-5 h-5 text-emerald-300" />
             </div>
             <div>
-              <p className="text-emerald-200 text-sm font-medium">Your ME-Score</p>
-              <p className="text-xs text-emerald-300/60">Moral Ethics Score</p>
+              <p className="text-emerald-100 text-sm font-medium leading-tight">Your ME-Score</p>
+              <p className="text-[11px] text-emerald-200/60 leading-tight">Moral Ethics Score</p>
             </div>
           </div>
+          <span className="flex items-center gap-1 text-xs font-medium text-emerald-100/80 bg-white/10 rounded-full pl-3 pr-2 py-1">
+            Profile <ChevronRight className="w-3.5 h-3.5" />
+          </span>
         </div>
 
-        <div className="mb-4">
-          <motion.span
-            initial={{ scale: 0.5 }}
-            animate={{ scale: 1 }}
-            className="text-7xl font-bold tracking-tight"
-          >
-            {MEScore}
-          </motion.span>
-          <p className="text-emerald-300/60 text-sm mt-2">Keep completing lessons, dilemmas & challenges to grow your score</p>
+        <motion.p
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="font-display tabular text-[5.5rem] leading-none font-medium tracking-tight mt-6 mb-5"
+          style={{ fontVariationSettings: '"opsz" 144' }}
+        >
+          {MEScore}
+        </motion.p>
+
+        <div className="flex items-center gap-2 text-xs">
+          <span className="rounded-full bg-white/10 px-3 py-1 text-emerald-50">Level {level} of 3</span>
+          <span className="rounded-full bg-white/10 px-3 py-1 text-emerald-50">{activities} {activities === 1 ? 'activity' : 'activities'}</span>
         </div>
+        {MEScore === 0 && (
+          <p className="text-emerald-100/70 text-sm mt-4 leading-snug">
+            Complete lessons, dilemmas &amp; challenges to grow your score.
+          </p>
+        )}
       </div>
     </motion.div>
   );

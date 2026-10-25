@@ -1,0 +1,87 @@
+{
+  "name": "Lesson",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Lesson title"
+    },
+    "thinker": {
+      "type": "string",
+      "description": "Philosopher, psychologist, or literary figure featured"
+    },
+    "thinker_image": {
+      "type": "string",
+      "description": "URL to thinker's image"
+    },
+    "content": {
+      "type": "string",
+      "description": "Main lesson content in markdown"
+    },
+    "key_insight": {
+      "type": "string",
+      "description": "One key takeaway"
+    },
+    "reflection_question": {
+      "type": "string",
+      "description": "Question for self-reflection"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "stoicism",
+        "cognitive_psychology",
+        "ethics",
+        "emotional_intelligence",
+        "decision_making",
+        "literary_wisdom",
+        "neuroscience"
+      ],
+      "description": "Lesson category"
+    },
+    "section": {
+      "type": "string",
+      "enum": [
+        "philosophy_psychology",
+        "literary_masters"
+      ],
+      "default": "philosophy_psychology",
+      "description": "Which section this lesson belongs to"
+    },
+    "primary_skill": {
+      "type": "string",
+      "enum": [
+        "logic",
+        "empathy",
+        "discipline",
+        "emotional_regulation",
+        "integrity"
+      ],
+      "description": "Primary skill this lesson develops"
+    },
+    "curriculum_level": {
+      "type": "number",
+      "default": 1,
+      "description": "Which curriculum level this belongs to (1-10)"
+    },
+    "duration_minutes": {
+      "type": "number",
+      "default": 5,
+      "description": "Estimated reading time"
+    },
+    "xp_reward": {
+      "type": "number",
+      "default": 15,
+      "description": "XP earned for completing"
+    },
+    "order": {
+      "type": "number",
+      "description": "Order in the lesson sequence"
+    }
+  },
+  "required": [
+    "title",
+    "thinker",
+    "content"
+  ]
+}

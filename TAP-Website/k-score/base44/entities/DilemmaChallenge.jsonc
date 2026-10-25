@@ -1,0 +1,74 @@
+{
+  "name": "DilemmaChallenge",
+  "type": "object",
+  "properties": {
+    "dilemma_id": {
+      "type": "string",
+      "description": "ID of the dilemma being challenged"
+    },
+    "dilemma_title": {
+      "type": "string",
+      "description": "Title of the dilemma (denormalized for display)"
+    },
+    "sender_email": {
+      "type": "string",
+      "description": "Email of the user who sent the challenge"
+    },
+    "sender_name": {
+      "type": "string",
+      "description": "Display name of the sender"
+    },
+    "recipient_email": {
+      "type": "string",
+      "description": "Email of the challenged user"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "completed",
+        "declined"
+      ],
+      "default": "pending",
+      "description": "Challenge status"
+    },
+    "message": {
+      "type": "string",
+      "description": "Optional personal message from sender"
+    }
+  },
+  "required": [
+    "dilemma_id",
+    "dilemma_title",
+    "sender_email",
+    "recipient_email"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "sender_email": "{{user.email}}"
+        },
+        {
+          "recipient_email": "{{user.email}}"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "recipient_email": "{{user.email}}"
+        }
+      ]
+    },
+    "delete": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<!-- saved from url=(0066)file:///Users/anikaseksaria/Downloads/anika-bucket-list%20(1).html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anika — High School Bucket List</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Anika — High School Bucket List_files/css2" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #1a1714;
+  --ink-mid: #3d3830;
+  --ink-soft: #7a7268;
+  --ink-faint: #b8b0a4;
+  --paper: #faf8f4;
+  --paper-warm: #f3efe8;
+  --paper-card: #ffffff;
+  --ruled: #e8e3db;
+  --accent: #8b4513;
+  --accent-light: #f0e4d4;
+  --accent-mid: #c4752a;
+  --green-dark: #2d5a27;
+  --green-light: #eaf3e0;
+  --blue-dark: #1a3a5c;
+  --blue-light: #e3edf7;
+  --purple-dark: #4a2870;
+  --purple-light: #ede4f5;
+  --done-bg: #f0f4f0;
+  --done-border: #8ab88a;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 0;
+}
+
+.page-bg {
+  background:
+    repeating-linear-gradient(
+      transparent,
+      transparent 27px,
+      var(--ruled) 27px,
+      var(--ruled) 28px
+    );
+  min-height: 100vh;
+  padding: 3rem 1rem 4rem;
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.hero {
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--ink);
+}
+
+.hero-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(32px, 6vw, 52px);
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-sub {
+  font-size: 14px;
+  color: var(--ink-soft);
+  font-weight: 300;
+  margin-top: 0.75rem;
+  font-family: 'DM Mono', monospace;
+}
+
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: var(--paper-card);
+  border: 1px solid var(--ruled);
+  border-radius: 4px;
+  padding: 10px 16px;
+  text-align: center;
+  min-width: 90px;
+  flex: 1;
+}
+
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--ink);
+  display: block;
+}
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 2px;
+  display: block;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.section-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--ink);
+}
+
+.section-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  background: var(--paper-warm);
+  border: 1px solid var(--ruled);
+  border-radius: 20px;
+  padding: 2px 10px;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--ruled);
+}
+
+.grid {
+  display: grid;
+  gap: 8px;
+}
+
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-1 { grid-template-columns: 1fr; }
+
+@media (max-width: 600px) {
+  .grid-2 { grid-template-columns: 1fr; }
+}
+
+.item {
+  background: var(--paper-card);
+  border: 1px solid var(--ruled);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.item:hover {
+  border-color: var(--ink-faint);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.item.done {
+  background: var(--done-bg);
+  border-color: var(--done-border);
+  opacity: 0.6;
+}
+
+.item.done .item-title {
+  text-decoration: line-through;
+  color: var(--ink-soft);
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid var(--ink-faint);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.item.done .checkbox {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+.item.done .checkbox::after {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 4px;
+  border-left: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(-45deg) translateY(-1px);
+}
+
+.item-body { flex: 1; min-width: 0; }
+
+.item-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+
+.item-desc {
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+
+.tag {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  padding: 2px 7px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+
+.tag-green  { background: var(--green-light);  color: var(--green-dark); }
+.tag-blue   { background: var(--blue-light);   color: var(--blue-dark); }
+.tag-amber  { background: var(--accent-light); color: var(--accent); }
+.tag-purple { background: var(--purple-light); color: var(--purple-dark); }
+.tag-red    { background: #fceaea;             color: #7a1f1f; }
+
+.priority-bar {
+  width: 3px;
+  border-radius: 2px;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+.priority-high { background: var(--accent); }
+.priority-mid  { background: var(--ink-faint); }
+.priority-low  { background: var(--ruled); }
+
+.footnote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-soft);
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ruled);
+}
+
+.progress-wrap {
+  margin-top: 1rem;
+  background: var(--paper-warm);
+  border: 1px solid var(--ruled);
+  border-radius: 6px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.progress-bar-outer {
+  flex: 1;
+  height: 6px;
+  background: var(--ruled);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-inner {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+.progress-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+</style>
+</head>
+<body>
+<div class="page-bg">
+<div class="container">
+
+<div class="hero">
+  <div class="hero-eyebrow">Del Norte High School · San Diego, CA · Grade 9 → 12</div>
+  <div class="hero-title">High School<br><em>Bucket List.</em></div>
+  <div class="hero-sub">Anika Seksaria · 2026–2030</div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar-outer"><div class="progress-bar-inner" id="progress-fill" style="width: 0%;"></div></div>
+    <div class="progress-label" id="progress-label">0 / 44 completed</div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><span class="stat-num" id="s-research">0/11</span><span class="stat-label">Research</span></div>
+    <div class="stat"><span class="stat-num" id="s-media">0/5</span><span class="stat-label">Media</span></div>
+    <div class="stat"><span class="stat-num" id="s-awards">0/8</span><span class="stat-label">Awards</span></div>
+    <div class="stat"><span class="stat-num" id="s-done">0</span><span class="stat-label">Total done</span></div>
+  </div>
+</div>
+
+<!-- ── RESEARCH ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Research &amp; Science</div>
+    <div class="section-count" id="cnt-research">0/11</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Project 1 — Music &amp; Alzheimer's</div>
+        <div class="item-desc">TAP performs at ActivCare. Hippocampus + mirror neurons. Build TAP Protocol + San Diego county policy proposal.</div>
+        <span class="tag tag-red">Submit Oct 21, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Project 2 — ME-Score &amp; neuroplasticity</div>
+        <div class="item-desc">4-week study. 30 Del Norte classmates. Prefrontal cortex strengthening via ethical engagement app.</div>
+        <span class="tag tag-red">Submit Oct 21, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Project 3 — Business leaders &amp; decisions</div>
+        <div class="item-desc">Remote structured interviews. Intuition vs deliberation. Somatic marker hypothesis in real executive decisions.</div>
+        <span class="tag tag-red">Submit Oct 21, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Project 4 — Trust, betrayal &amp; oxytocin</div>
+        <div class="item-desc">Survey study on how formative betrayal rewires oxytocin trust circuits. Nature vs nurture at the neural level.</div>
+        <span class="tag tag-red">Submit Oct 21, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Salk Institute mentorship</div>
+        <div class="item-desc">Cold email this week with Project 1. Build toward sophomore formal internship at $17/hr. Your in-person research credential.</div>
+        <span class="tag tag-red">Email this week</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">ISEF submission</div>
+        <div class="item-desc">Expand best AAN paper through Greater SD Science Fair → Regeneron ISEF pipeline. Built from freshman research.</div>
+        <span class="tag tag-purple">11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Co-authored published paper</div>
+        <div class="item-desc">1–2 papers in student or peer-reviewed journal. Built from AAN work + Salk mentorship. Real byline, real credibility.</div>
+        <span class="tag tag-purple">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">ThinkNeuro virtual research internship</div>
+        <div class="item-desc">10-week virtual program lectured by Harvard Engineering + Stanford Medicine faculty. Capstone Track = real research project. Alumni placed at Ivy conferences including UPenn NRCP. Early deadline Apr 17, 2026.</div>
+        <span class="tag tag-red">Apply by Apr 17, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">IYNA Summer Program — Capstone Track</div>
+        <div class="item-desc">Global cohort, Neuroscience I + II. Capstone Track = mandatory lectures, small-group sessions, and a research project. Ends with Aug 8 symposium. Apply by May 15, 2026.</div>
+        <span class="tag tag-red">Apply by May 15, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">IYNA–INS Neuroethics Essay Competition</div>
+        <div class="item-desc">Co-run by the International Neuroethics Society. Published in IYNA Journal read across 126 countries. Perfect home for ME-Score ethical framework or Project 4 oxytocin findings.</div>
+        <span class="tag tag-blue">Annual · July deadline</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;research&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Penn Neuroscience Research Academy (3-week residential)</div>
+        <div class="item-desc">Taught by Penn faculty. Covers cellular neuroscience → memory, emotion, morality. Includes journal club, lab work, and a neuroethics debate club — tailor-made for your angle. Sold out for 2026; apply early for summer 2027. Rolling admissions fills fast.</div>
+        <span class="tag tag-purple">Apply early · 10th grade</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── TAL / MEDIA ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">TAL — Media Platform</div>
+    <div class="section-count" id="cnt-media">0/5</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;media&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">3 TAL episodes this summer</div>
+        <div class="item-desc">Apophenia, cognitive decline, Project 4 trust &amp; betrayal. Cinematic storytelling — not explainer videos. ME-Score reflections as raw material.</div>
+        <span class="tag tag-red">Summer 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;media&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">TAL podcast launch</div>
+        <div class="item-desc">Interview neuroscientists, philosophers, Project 3 business leaders. ME-Score curriculum as conversation framework.</div>
+        <span class="tag tag-blue">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;media&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Zine series — curated reflections</div>
+        <div class="item-desc">ME-Score user stories around each theme: suffering, identity, trust, attention. Printed + digital. Doubles as TAL supplementary media and nonprofit outreach artifact.</div>
+        <span class="tag tag-blue">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;media&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Film festival + Ivy competition submissions</div>
+        <div class="item-desc">Scholastic Art &amp; Awards, Yale Short Film, Harvard film competitions. TAL episodes as submissions — real external validation.</div>
+        <span class="tag tag-blue">Ongoing from 10th</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;media&#39;)">
+      <div class="priority-bar priority-low"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Collaborate with established creator</div>
+        <div class="item-desc">One meaningful collab with a science communicator, philosopher, or neuroscientist with existing reach. Comes from doing, not pitching.</div>
+        <span class="tag tag-purple">11th grade</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── ME-SCORE & CREATIVE ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">ME-Score &amp; Creative Work</div>
+    <div class="section-count" id="cnt-creative">0/4</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;creative&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Publish ME-Score to App Store</div>
+        <div class="item-desc">Real users, real data. Growing user base strengthens Project 2 neuroplasticity findings and nonprofit reach metrics.</div>
+        <span class="tag tag-red">This summer</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;creative&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Release original songs</div>
+        <div class="item-desc">Publish on streaming platforms. Connects authentically to TAP and the music-neuroscience narrative you're building.</div>
+        <span class="tag tag-blue">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;creative&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Neuroscience music portfolio — publish &amp; release</div>
+        <div class="item-desc">Compose and release an original music portfolio backed by neuroscience — think Brain.fm but yours. Tracks engineered for specific brain states: deep focus (alpha/theta waves), stress relief (parasympathetic activation), sleep, and mood elevation. Each track paired with a short write-up explaining the science behind it. Publish on Spotify + a dedicated site. Direct extension of TAP Protocol research into a real, publicly accessible product.</div>
+        <span class="tag tag-blue">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;creative&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Publish a book</div>
+        <div class="item-desc">Philosophy + psychology + neuroscience + human experience. Written by someone who volunteers with dementia patients and built an ethics app. Start writing this summer.</div>
+        <span class="tag tag-purple">Start now · publish 11th</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── NONPROFIT & COMMUNITY ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Nonprofit &amp; Community Impact</div>
+    <div class="section-count" id="cnt-nonprofit">0/5</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;nonprofit&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Launch nonprofit umbrella org</div>
+        <div class="item-desc">Unifies ME-Score, TAL, TAP, and Music Protocol under one mission: neuroscience + storytelling for ethical development. Build first, formalize sophomore year when numbers exist.</div>
+        <span class="tag tag-amber">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;nonprofit&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">TAP Music Protocol — SD county policy</div>
+        <div class="item-desc">Evidence-based proposal for SD senior centers. ActivCare → Alzheimer's Association → San Diego County pipeline.</div>
+        <span class="tag tag-amber">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;nonprofit&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Presidential Volunteer Service Award</div>
+        <div class="item-desc">ActivCare hours + nonprofit reach. Gold award requires 250+ hours. Track every single hour from today forward.</div>
+        <span class="tag tag-amber">11th grade target</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;nonprofit&#39;)">
+      <div class="priority-bar priority-low"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Measurable community reach numbers</div>
+        <div class="item-desc">ME-Score users + TAL views + TAP performances + policy impact. Real numbers for college apps and grant applications.</div>
+        <span class="tag tag-amber">Ongoing</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;nonprofit&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">NeuroLiterate — launch &amp; scale</div>
+        <div class="item-desc">Nonprofit democratizing neuroscience for elementary and middle schoolers — teaching kids how their own brain actually works. Curriculum covers self-regulation (amygdala hijack), cognitive agency (RAS filtering), and learning mastery (hippocampal storage + myelination). Goal: make "Neuroscience 101" as standard as "Math 101." Launch at 1–2 SD schools, then build toward district-wide adoption. Connects directly to your neuroplasticity research and the ME-Score ethical framework.</div>
+        <span class="tag tag-green">Launch 10th · scale 11th–12th</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SPEAKING & PRESENCE ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Speaking &amp; Public Presence</div>
+    <div class="section-count" id="cnt-speaking">0/6</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">NRCP at Penn — poster session + Lucid Challenge</div>
+        <div class="item-desc">National Research Conference at Penn. Present research poster across disciplines, plus compete in the Lucid Communication Challenge: 5-min talk, 1-page proposal, judged by field experts. ThinkNeuro alumni have been accepted here.</div>
+        <span class="tag tag-amber">9th–10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Speak at a youth or science conference</div>
+        <div class="item-desc">Present research or TAL work at an external conference — SfN, a neuroscience symposium, or a youth science summit. AAN Chicago poster is step one toward this.</div>
+        <span class="tag tag-purple">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">TEDx talk</div>
+        <div class="item-desc">TEDx Del Norte or TEDx San Diego. Needs real track record first — nonprofit impact + research credibility. Don't rush it, earn it.</div>
+        <span class="tag tag-purple">11th grade target</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Host your own panel or workshop</div>
+        <div class="item-desc">Organize an event — ethics in neuroscience, storytelling + science, youth mental wellness. Invite speakers, build the stage yourself. Local or virtual to start.</div>
+        <span class="tag tag-blue">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Speak on a panel (invited)</div>
+        <div class="item-desc">Be invited onto someone else's panel — teen mental health, women in STEM, youth entrepreneurship. Shows external credibility, not just self-promotion.</div>
+        <span class="tag tag-blue">11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;speaking&#39;)">
+      <div class="priority-bar priority-low"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">National press feature</div>
+        <div class="item-desc">Teen Vogue, Scientific American Mind, or similar. The nonprofit + research + TAL story told in one piece. Comes from doing, not pitching.</div>
+        <span class="tag tag-purple">11th–12th grade</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── AWARDS ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">Awards &amp; Recognition</div>
+    <div class="section-count" id="cnt-awards">0/8</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">AAN Neuroscience Research Prize</div>
+        <div class="item-desc">$1,000 + Chicago poster presentation at the AAN Annual Meeting. Submit all 4 projects by Oct 21, 2026.</div>
+        <span class="tag tag-red">Deadline Oct 21, 2026</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Scholastic Art &amp; Writing Award</div>
+        <div class="item-desc">TAL episodes + zines + poetry. Most accessible major national award for teen creative work. Apply from 10th grade.</div>
+        <span class="tag tag-blue">10th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Women in STEM / science award</div>
+        <div class="item-desc">Girls Inc., Society of Women Engineers award, AWIS, or similar. Your research + nonprofit + story makes you a strong candidate. Research which fits best by 10th.</div>
+        <span class="tag tag-blue">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Youth entrepreneurship award</div>
+        <div class="item-desc">NFTE, YEA!, Diamond Challenge, or similar. ME-Score + nonprofit as the venture. Neuroethics angle is genuinely rare in this field.</div>
+        <span class="tag tag-amber">10th–11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Alzheimer's research foundation recognition</div>
+        <div class="item-desc">Alzheimer's Association grant, Bright Focus Foundation, or Alzheimer's Research UK youth award. Project 1 + TAP Protocol + ActivCare history makes this a natural fit.</div>
+        <span class="tag tag-amber">11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">DECA state or national placement</div>
+        <div class="item-desc">Business Law &amp; Ethics category. Neuroeconomics angle makes your approach genuinely differentiated from competitors.</div>
+        <span class="tag tag-purple">11th grade</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-low"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Poetry publication</div>
+        <div class="item-desc">Submit to literary journals — Polyphony Lit, the Adroit Journal, Sine Theta. Published poetry as a high schooler is genuinely rare. Start submitting freshman year.</div>
+        <span class="tag tag-blue">Ongoing from 9th</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;awards&#39;)">
+      <div class="priority-bar priority-low"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">National recognition — major program</div>
+        <div class="item-desc">Davidson Fellows, Regeneron STS, Congressional App Challenge, or similar top-tier national program. The cumulative result of doing everything else on this list.</div>
+        <span class="tag tag-purple">12th grade</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── SCHOOL & LEADERSHIP ── -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">School &amp; Leadership</div>
+    <div class="section-count" id="cnt-school">0/5</div>
+    <div class="section-line"></div>
+  </div>
+  <div class="grid grid-2">
+
+    <div class="item" onclick="toggle(this,&#39;school&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">TAP — Del Norte club + ActivCare performances</div>
+        <div class="item-desc">Official club. 10+ performances at ActivCare this summer. 4 years of measurable growth, teen performers, and community impact by senior year.</div>
+        <span class="tag tag-green">Ongoing · non-negotiable</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;school&#39;)">
+      <div class="priority-bar priority-high"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">DECA leadership position</div>
+        <div class="item-desc">Active leadership role in DECA. Competitive placements. Connects to neuroeconomics and business decision-making research angle.</div>
+        <span class="tag tag-green">9th–12th</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;school&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Mock Trial — Del Norte</div>
+        <div class="item-desc">Ethics + law + argumentation. Connects directly to neuroethics research and Project 3 decision-making narrative. Build toward competition placements.</div>
+        <span class="tag tag-blue">9th–12th</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;school&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">ActivCare — 4 years of consistency</div>
+        <div class="item-desc">Your quiet superpower and your origin story. Track every hour toward Presidential Award. Never stop going.</div>
+        <span class="tag tag-green">Ongoing · non-negotiable</span>
+      </div>
+    </div>
+
+    <div class="item" onclick="toggle(this,&#39;school&#39;)">
+      <div class="priority-bar priority-mid"></div>
+      <div class="checkbox"></div>
+      <div class="item-body">
+        <div class="item-title">Law firm internship — neurolaw &amp; impact litigation</div>
+        <div class="item-desc">Shadow or intern at a firm working at the intersection of neuroscience and law — neuroethics in criminal sentencing, cognitive capacity in elder law, or brain-based evidence in civil rights cases. Bridges Project 3 decision-making research + Mock Trial + your neuroethics angle into a real legal context. Target firms with health law, disability rights, or bioethics practices in San Diego.</div>
+        <span class="tag tag-purple">10th–11th grade</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footnote">
+  "I study how the brain shapes human experience — and I build things to make it better."<br>
+  <span style="font-size: 13px; font-family: &#39;DM Mono&#39;, monospace; font-style: normal; color: var(--ink-faint);">Anika · Grade 9 · Del Norte · 2026</span>
+</div>
+
+</div><!-- /container -->
+</div><!-- /page-bg -->
+
+<script>
+const counts = {
+  research:  { done: 0, total: 11 },
+  media:     { done: 0, total: 5 },
+  creative:  { done: 0, total: 4 },
+  nonprofit: { done: 0, total: 5 },
+  speaking:  { done: 0, total: 6 },
+  awards:    { done: 0, total: 8 },
+  school:    { done: 0, total: 5 }
+};
+
+function toggle(el, cat) {
+  el.classList.toggle('done');
+  const isDone = el.classList.contains('done');
+  if (cat) {
+    counts[cat].done += isDone ? 1 : -1;
+    const cnt = document.getElementById('cnt-' + cat);
+    if (cnt) cnt.textContent = counts[cat].done + '/' + counts[cat].total;
+  }
+  updateGlobal();
+}
+
+function updateGlobal() {
+  let totalDone = 0, totalAll = 0;
+  for (const cat in counts) {
+    totalDone += counts[cat].done;
+    totalAll  += counts[cat].total;
+  }
+  const pct = totalAll ? Math.round((totalDone / totalAll) * 100) : 0;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('progress-label').textContent = totalDone + ' / ' + totalAll + ' completed';
+  document.getElementById('s-done').textContent = totalDone;
+  document.getElementById('s-research').textContent = counts.research.done + '/' + counts.research.total;
+  document.getElementById('s-media').textContent    = counts.media.done    + '/' + counts.media.total;
+  document.getElementById('s-awards').textContent   = counts.awards.done   + '/' + counts.awards.total;
+}
+
+updateGlobal();
+</script>
+
+
+</body></html>

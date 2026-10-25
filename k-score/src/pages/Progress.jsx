@@ -69,7 +69,7 @@ export default function Progress() {
     (p?.completed_challenges?.length || 0);
 
   const kScore = p?.k_score || 0;
-  const kScorePct = Math.round((kScore / 1000) * 100);
+  const kScorePct = Math.min(100, Math.round((kScore / 1000) * 100));
 
   if (isLoading) {
     return (
@@ -80,7 +80,7 @@ export default function Progress() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pb-32">
       <div className="max-w-lg mx-auto px-4 pt-6">
 
         {/* Header */}
@@ -103,7 +103,7 @@ export default function Progress() {
           <div className="flex items-center justify-between mb-3">
             <div>
               <p className="text-emerald-100 text-xs font-semibold uppercase tracking-wide">Overall ME-Score</p>
-              <p className="text-white text-5xl font-bold mt-0.5">{kScore}</p>
+              <p className="font-display tabular text-white text-6xl font-medium mt-1">{kScore}</p>
               <p className="text-emerald-200 text-xs mt-1">out of 1000</p>
             </div>
             <div className="text-right">
@@ -153,24 +153,24 @@ export default function Progress() {
 
           <ResponsiveContainer width="100%" height={260}>
             <RadarChart data={radarData} margin={{ top: 10, right: 20, bottom: 10, left: 20 }}>
-              <PolarGrid stroke="#e2e8f0" />
+              <PolarGrid stroke="hsl(var(--border))" />
               <PolarAngleAxis
                 dataKey="label"
-                tick={{ fill: '#64748b', fontSize: 11, fontWeight: 600 }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11, fontWeight: 600 }}
               />
               <PolarRadiusAxis
                 angle={90}
                 domain={[0, MAX_SCORE]}
-                tick={{ fontSize: 9, fill: '#94a3b8' }}
+                tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }}
                 tickCount={4}
               />
               <Radar
                 dataKey="value"
-                stroke="#10b981"
-                fill="#10b981"
+                stroke="hsl(var(--chart-1))"
+                fill="hsl(var(--chart-1))"
                 fillOpacity={0.25}
                 strokeWidth={2}
-                dot={{ fill: '#10b981', r: 4 }}
+                dot={{ fill: 'hsl(var(--chart-1))', r: 4 }}
               />
               <Tooltip content={<CustomTooltip />} />
             </RadarChart>
@@ -196,7 +196,7 @@ export default function Progress() {
           className="mt-4 bg-card border border-border rounded-3xl p-4 shadow-sm flex items-center justify-around"
         >
           <div className="text-center">
-            <p className="text-2xl font-bold text-foreground">{Math.min(p?.curriculum_level || 1, 5)}</p>
+            <p className="text-2xl font-bold text-foreground">{Math.min(p?.curriculum_level || 1, 3)}</p>
             <p className="text-xs text-muted-foreground">Curriculum Level</p>
           </div>
           <div className="w-px h-10 bg-border" />

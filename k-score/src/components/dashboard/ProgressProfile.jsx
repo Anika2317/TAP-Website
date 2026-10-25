@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Zap, BookOpen, Scale, Target, TrendingUp } from 'lucide-react';
+import { BookOpen, Scale, Target, TrendingUp } from 'lucide-react';
 import {
   RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   ResponsiveContainer, Tooltip
@@ -78,10 +77,10 @@ export default function ProgressProfile({ progress: p }) {
         </div>
         <ResponsiveContainer width="100%" height={240}>
           <RadarChart data={radarData} margin={{ top: 8, right: 18, bottom: 8, left: 18 }}>
-            <PolarGrid stroke="#e2e8f0" />
-            <PolarAngleAxis dataKey="label" tick={{ fill: '#64748b', fontSize: 11, fontWeight: 600 }} />
-            <PolarRadiusAxis angle={90} domain={[0, maxSkill]} tick={{ fontSize: 9, fill: '#94a3b8' }} tickCount={4} />
-            <Radar dataKey="value" stroke="#10b981" fill="#10b981" fillOpacity={0.25} strokeWidth={2} dot={{ fill: '#10b981', r: 4 }} />
+            <PolarGrid stroke="hsl(var(--border))" />
+            <PolarAngleAxis dataKey="label" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11, fontWeight: 600 }} />
+            <PolarRadiusAxis angle={90} domain={[0, maxSkill]} tick={{ fontSize: 9, fill: 'hsl(var(--muted-foreground))' }} tickCount={4} />
+            <Radar dataKey="value" stroke="hsl(var(--chart-1))" fill="hsl(var(--chart-1))" fillOpacity={0.25} strokeWidth={2} dot={{ fill: 'hsl(var(--chart-1))', r: 4 }} />
             <Tooltip content={<CustomTooltip />} />
           </RadarChart>
         </ResponsiveContainer>

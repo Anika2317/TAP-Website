@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -9,8 +9,7 @@ import SkillRadar from '@/components/dashboard/SkillRadar';
 import StreakCard from '@/components/dashboard/StreakCard';
 import QuickActions from '@/components/dashboard/QuickActions';
 import DailyAffirmation from '@/components/dashboard/DailyAffirmation';
-import ScrollView from '@/components/shared/ScrollView';
-import { Loader2, Settings, Map } from 'lucide-react';
+import { Loader2, Settings, Map, ChevronRight } from 'lucide-react';
 
 export default function Home() {
   const [user, setUser] = useState(null);
@@ -67,9 +66,20 @@ export default function Home() {
   };
 
   const progress = progressList?.[0];
-  const randomAffirmation = affirmations?.length > 0
-    ? affirmations[Math.floor(Math.random() * affirmations.length)]
-    : null;
+  // Pick once per day (stable across re-renders) instead of on every render
+  const randomAffirmation = useMemo(() => {
+    if (!affirmations?.length) return null;
+    const d = new Date();
+    const dayIndex = d.getFullYear() * 400 + d.getMonth() * 31 + d.getDate();
+    return affirmations[dayIndex % affirmations.length];
+  }, [affirmations]);
+
+  const firstName = user?.full_name?.split(' ')[0];
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const today = new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+  const journeyLevel = Math.min(progress?.curriculum_level || 1, 3);
+  const journeyDone = (progress?.curriculum_level || 1) > 3;
 
   // Block rendering until we know auth + survey status
   if (!user || progressLoading || surveyLoading) {
@@ -87,56 +97,81 @@ export default function Home() {
           <PreSurveyModal onComplete={handleSurveyComplete} mandatory />
         )}
       </AnimatePresence>
-      <div className="bg-gradient-to-br from-background via-emerald-50/20 dark:via-emerald-950/10 to-muted">
-        <div className="max-w-lg mx-auto px-4 py-8 pb-24">
+      <div className="relative">
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(60%_100%_at_50%_0%,hsl(var(--primary)/0.10),transparent)]"
+          aria-hidden="true"
+        />
+        <div className="relative max-w-lg mx-auto px-4 pt-8 pb-32">
           {/* Header */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-5 flex items-start justify-between"
+            className="mb-6 flex items-start justify-between gap-4"
           >
             <div>
-              <h1 className="text-2xl font-bold text-foreground">
-                Welcome back{user?.full_name ? `, ${user.full_name.split(' ')[0]}` : ''}
+              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">{today}</p>
+              <h1 className="text-[2rem] leading-tight font-medium text-foreground mt-1">
+                {greeting}{firstName ? `, ${firstName}` : ''}
               </h1>
-              <p className="text-muted-foreground mt-1">ME-Score</p>
             </div>
-            <Link to="/AccountSettings" className="p-2 rounded-xl hover:bg-accent transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center" style={{ WebkitTapHighlightColor: 'transparent' }}>
+            <Link
+              to="/AccountSettings"
+              aria-label="Account settings"
+              className="shrink-0 rounded-full border border-border bg-card/70 backdrop-blur hover:bg-accent transition-colors w-11 h-11 flex items-center justify-center"
+              style={{ WebkitTapHighlightColor: 'transparent' }}
+            >
               <Settings className="w-5 h-5 text-muted-foreground" />
             </Link>
           </motion.div>
 
           {/* Dashboard */}
-          <div className="space-y-6">
-            <KScoreCard progress={progress} />
+          <div className="space-y-4">
+            <Link to="/Progress" aria-label="Open your progress profile" className="block rounded-[1.75rem]">
+              <KScoreCard progress={progress} />
+            </Link>
+
             <StreakCard progress={progress} />
 
             {/* Journey Banner */}
-            <Link to="/Journey">
+            <Link to="/Journey" className="block rounded-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-r from-slate-800 dark:from-slate-950 to-slate-700 dark:to-slate-900 rounded-2xl p-4 flex items-center gap-4 shadow-md"
+                transition={{ delay: 0.15 }}
+                className="group bg-card border border-border rounded-3xl p-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow"
                 style={{ WebkitTapHighlightColor: 'transparent' }}
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-sm">
                   <Map className="w-6 h-6 text-white" />
                 </div>
-                <div className="flex-1">
-                  <div className="text-xs text-slate-400 dark:text-slate-500 font-medium">Your Path</div>
-                  <div className="text-white font-bold">Level {Math.min(progress?.curriculum_level || 1, 10)} Journey</div>
-                  <div className="text-slate-400 dark:text-slate-500 text-xs">View all 3 levels →</div>
+                <div className="flex-1 min-w-0">
+                  <div className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">Your path</div>
+                  <div className="text-foreground font-semibold mt-0.5">
+                    {journeyDone ? 'Journey complete' : `Level ${journeyLevel} of 3`}
+                  </div>
+                  <div className="flex gap-1 mt-2" aria-hidden="true">
+                    {[1, 2, 3].map((l) => (
+                      <span
+                        key={l}
+                        className={`h-1 flex-1 rounded-full ${journeyDone || l < journeyLevel ? 'bg-primary' : l === journeyLevel ? 'bg-primary/40' : 'bg-muted'}`}
+                      />
+                    ))}
+                  </div>
                 </div>
+                <ChevronRight className="w-5 h-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
               </motion.div>
             </Link>
 
-            <div>
-              <h2 className="text-lg font-semibold text-foreground mb-4">Train Your Mind</h2>
+            <section className="pt-4">
+              <h2 className="font-display text-xl font-medium text-foreground mb-3 px-1">Train your mind</h2>
               <QuickActions />
-            </div>
+            </section>
 
-            <SkillRadar progress={progress} />
-            <DailyAffirmation affirmation={randomAffirmation} />
+            <div className="pt-2 space-y-4">
+              <SkillRadar progress={progress} />
+              <DailyAffirmation affirmation={randomAffirmation} />
+            </div>
           </div>
 
         </div>

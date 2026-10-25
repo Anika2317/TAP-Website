@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { base44 } from '@/api/base44Client';
 import { motion } from 'framer-motion';
 import { User, Trash2, LogOut, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 
 export default function AccountSettings() {
   const [user, setUser] = useState(null);
@@ -31,74 +30,74 @@ export default function AccountSettings() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pb-24">
+    <div className="min-h-screen bg-background pb-32">
       <div className="max-w-lg mx-auto px-4 py-8">
         <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center mb-4">
-            <User className="w-6 h-6 text-white" />
+          <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center mb-4">
+            <User className="w-6 h-6 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Account Settings</h1>
-          <p className="text-slate-500 mt-1">{user?.email}</p>
+          <h1 className="text-2xl font-bold text-foreground">Account Settings</h1>
+          <p className="text-muted-foreground mt-1">{user?.email}</p>
         </motion.div>
 
         {/* Profile info */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="bg-white rounded-2xl border border-slate-100 p-5 mb-4 shadow-sm">
-          <h2 className="font-semibold text-slate-800 mb-3">Profile</h2>
+          className="bg-card rounded-2xl border border-border p-5 mb-4 shadow-sm">
+          <h2 className="font-semibold text-foreground mb-3">Profile</h2>
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 font-bold text-lg">
+            <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-950/40 flex items-center justify-center text-emerald-700 dark:text-emerald-300 font-bold text-lg">
               {user?.full_name?.charAt(0) || '?'}
             </div>
             <div>
-              <p className="font-medium text-slate-900">{user?.full_name || 'User'}</p>
-              <p className="text-sm text-slate-500">{user?.email}</p>
+              <p className="font-medium text-foreground">{user?.full_name || 'User'}</p>
+              <p className="text-sm text-muted-foreground">{user?.email}</p>
             </div>
           </div>
         </motion.div>
 
         {/* Sign out */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}
-          className="bg-white rounded-2xl border border-slate-100 p-5 mb-4 shadow-sm">
-          <h2 className="font-semibold text-slate-800 mb-3">Session</h2>
+          className="bg-card rounded-2xl border border-border p-5 mb-4 shadow-sm">
+          <h2 className="font-semibold text-foreground mb-3">Session</h2>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full text-left py-2 text-slate-700 hover:text-slate-900 transition-colors"
+            className="flex items-center gap-3 w-full text-left py-2 text-foreground/85 hover:text-foreground transition-colors"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <LogOut className="w-5 h-5 text-slate-400" />
+            <LogOut className="w-5 h-5 text-muted-foreground" />
             <span className="font-medium">Sign Out</span>
           </button>
         </motion.div>
 
         {/* Danger zone */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="bg-white rounded-2xl border border-red-100 p-5 shadow-sm">
-          <h2 className="font-semibold text-red-700 mb-1">Danger Zone</h2>
-          <p className="text-sm text-slate-500 mb-4">
+          className="bg-card rounded-2xl border border-red-100 dark:border-red-800/60 p-5 shadow-sm">
+          <h2 className="font-semibold text-red-700 dark:text-red-300 mb-1">Danger Zone</h2>
+          <p className="text-sm text-muted-foreground mb-4">
             Permanently deletes your account and all associated data. This action cannot be undone.
           </p>
 
           {!showDeleteConfirm ? (
             <button
               onClick={() => setShowDeleteConfirm(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 text-red-600 font-medium text-sm border border-red-200 hover:bg-red-100 transition-colors"
+              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 font-medium text-sm border border-red-200 dark:border-red-800/60 hover:bg-red-100 dark:hover:bg-red-950/40 transition-colors"
               style={{ WebkitTapHighlightColor: 'transparent' }}
             >
               <Trash2 className="w-4 h-4" />
               Delete My Account
             </button>
           ) : (
-            <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+            <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 rounded-xl p-4">
               <div className="flex items-start gap-3 mb-4">
                 <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-red-700 font-medium">
+                <p className="text-sm text-red-700 dark:text-red-300 font-medium">
                   Are you sure? All your progress, scores, and data will be permanently erased.
                 </p>
               </div>
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowDeleteConfirm(false)}
-                  className="flex-1 py-2 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm font-medium"
+                  className="flex-1 py-2 rounded-xl border border-border bg-card text-foreground/85 text-sm font-medium"
                   style={{ WebkitTapHighlightColor: 'transparent' }}
                 >
                   Cancel

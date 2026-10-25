@@ -1,0 +1,163 @@
+{
+  "name": "PreSurvey",
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string",
+      "description": "Participant's chosen display name"
+    },
+    "age": {
+      "type": "number",
+      "description": "Participant age (optional)"
+    },
+    "grade_level": {
+      "type": "string",
+      "description": "Grade or year level (e.g. Grade 10, Year 11)"
+    },
+    "self_rated_ethical_confidence": {
+      "type": "number",
+      "description": "Baseline self-rating: How confident are you in your ethical decision-making? (1=not at all, 5=very confident)",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "ethical_reasoning_style": {
+      "type": "string",
+      "description": "Baseline self-reported reasoning style",
+      "enum": [
+        "gut_feeling",
+        "think_it_through",
+        "depends_on_situation",
+        "ask_others"
+      ]
+    },
+    "ethical_curiosity": {
+      "type": "number",
+      "description": "How interested are you in questions about right and wrong, fairness, and ethical decision making? (1-5)",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "self_reflective_curiosity": {
+      "type": "number",
+      "description": "How much do you enjoy reflecting on your own thinking, emotions, and personal growth? (1-5)",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "intellectual_curiosity": {
+      "type": "number",
+      "description": "How interested are you in understanding how the human mind and brain work? (1-5)",
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "scenario_1_response": {
+      "type": "string",
+      "description": "Response to scenario 1: loyalty vs honesty"
+    },
+    "scenario_2_response": {
+      "type": "string",
+      "description": "Response to scenario 2: personal gain vs collective harm"
+    },
+    "scenario_3_response": {
+      "type": "string",
+      "description": "Response to scenario 3: rule-following vs compassionate exception"
+    },
+    "consistency_score": {
+      "type": "number",
+      "description": "Admin-rated: 1-3. Does reasoning align with stated personal values?",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "reciprocity_score": {
+      "type": "number",
+      "description": "Admin-rated: 1-3. Do they consider others and does it influence their decision?",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "deliberation_score": {
+      "type": "number",
+      "description": "Admin-rated: 1-3. Principled reasoning vs gut reaction?",
+      "enum": [
+        1,
+        2,
+        3
+      ]
+    },
+    "consistency_notes": {
+      "type": "string",
+      "description": "Admin notes on consistency dimension"
+    },
+    "reciprocity_notes": {
+      "type": "string",
+      "description": "Admin notes on reciprocity dimension"
+    },
+    "deliberation_notes": {
+      "type": "string",
+      "description": "Admin notes on deliberation dimension"
+    },
+    "completed": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the user completed the survey"
+    }
+  },
+  "required": [],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    },
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

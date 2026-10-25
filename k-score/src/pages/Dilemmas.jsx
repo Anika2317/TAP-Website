@@ -7,7 +7,6 @@ import { Scale, Loader2, CheckCircle2, Lock, ChevronDown } from 'lucide-react';
 import SearchAndFilter from '@/components/shared/SearchAndFilter';
 import DilemmaCard from '@/components/dilemmas/DilemmaCard';
 import DilemmaModal from '@/components/dilemmas/DilemmaModal';
-import LevelProgressBar from '@/components/curriculum/LevelProgressBar';
 import { computeCurriculumLevel } from '@/components/curriculum/curriculumUtils';
 import { computeKScore } from '@/lib/progressUtils';
 import DailyLimitBanner from '@/components/shared/DailyLimitBanner';
@@ -300,7 +299,7 @@ export default function Dilemmas() {
   return (
     <ScrollView className="min-h-screen">
       <div className="bg-gradient-to-br from-background via-emerald-50/20 dark:via-emerald-950/10 to-muted">
-        <div className="max-w-lg mx-auto px-4 py-8 pb-24">
+        <div className="max-w-lg mx-auto px-4 py-8 pb-32">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

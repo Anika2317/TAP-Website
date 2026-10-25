@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { Trophy, Flame, Loader2, TrendingUp } from 'lucide-react';
 import ScrollView from '@/components/shared/ScrollView';
-import ChallengesSection from '@/components/social/ChallengesSection';
 
 const SKILLS = ['logic', 'empathy', 'discipline', 'emotional_regulation', 'integrity'];
 
@@ -24,8 +23,8 @@ function isActiveThisWeek(entry) {
 function RankBadge({ rank }) {
   const colors = { 1: 'bg-amber-400 text-white', 2: 'bg-slate-300 text-white', 3: 'bg-orange-400 text-white' };
   return (
-    <div className={`w-7 h-7 rounded-full flex items-center justify-center ${colors[rank] || 'bg-slate-100'}`}>
-      <span className={`text-xs font-bold ${colors[rank] ? '' : 'text-slate-500'}`}>{rank}</span>
+    <div className={`w-7 h-7 rounded-full flex items-center justify-center ${colors[rank] || 'bg-muted'}`}>
+      <span className={`text-xs font-bold ${colors[rank] ? '' : 'text-muted-foreground'}`}>{rank}</span>
     </div>
   );
 }
@@ -115,7 +114,7 @@ export default function Social() {
 
   return (
     <ScrollView className="min-h-screen">
-      <div className="bg-background pb-28">
+      <div className="bg-background pb-32">
         <div className="max-w-lg mx-auto px-4 pt-6">
 
         {/* Header */}
@@ -136,7 +135,7 @@ export default function Social() {
             </div>
             <div className="flex-1">
               <p className="text-emerald-100 text-xs font-semibold">Your Global Rank</p>
-              <p className="text-white text-2xl font-bold">#{myRank.rank}</p>
+              <p className="font-display tabular text-white text-3xl font-medium">#{myRank.rank}</p>
             </div>
             <div className="text-right">
               <p className="text-white font-bold text-xl">{myRank.k_score || 0}</p>
@@ -161,7 +160,7 @@ export default function Social() {
             <div className="space-y-2">
               {weeklyTop.map((entry, i) => (
                 <div key={entry.id} className="flex items-center gap-3">
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${['bg-amber-400 text-white','bg-slate-300 text-white','bg-orange-400 text-white','bg-slate-100 text-slate-500','bg-slate-100 text-slate-500'][i]}`}>{i+1}</span>
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${['bg-amber-400 text-white','bg-slate-300 text-white','bg-orange-400 text-white','bg-muted text-muted-foreground','bg-muted text-muted-foreground'][i]}`}>{i+1}</span>
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center flex-shrink-0">
                     <span className="text-white font-bold text-xs">{entry.displayName.charAt(0).toUpperCase()}</span>
                   </div>

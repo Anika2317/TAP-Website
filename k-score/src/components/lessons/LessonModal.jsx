@@ -103,16 +103,16 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 z-50 flex items-end sm:items-center justify-center">
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} style={{ touchAction: 'none' }} />
         <motion.div initial={{ y: '100%' }} animate={{ y: 0 }} exit={{ y: '100%' }} transition={{ type: 'spring', damping: 25 }}
-          className="relative w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden" style={{ maxHeight: '75dvh', height: '75dvh' }}>
+          className="relative w-full max-w-lg bg-card rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden" style={{ maxHeight: '75dvh', height: '75dvh' }}>
             {/* Header */}
-            <div className="border-b border-slate-100 px-3 py-1.5 flex items-center justify-between">
+            <div className="border-b border-border px-3 py-1.5 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <button 
                   onClick={onClose} 
-                  className="p-2 rounded-full hover:bg-slate-100"
+                  className="p-2 rounded-full hover:bg-muted"
                   aria-label="Close lesson review"
                 >
-                  <X className="w-5 h-5 text-slate-500" aria-hidden="true" />
+                  <X className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
                 </button>
               </div>
             </div>
@@ -120,13 +120,13 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
             <div style={{ flex: '1 1 0', minHeight: 0, overflowY: 'auto', WebkitOverflowScrolling: 'touch', overscrollBehavior: 'contain' }}>
               <div className="p-3 space-y-3">
                 {lesson.key_insight && (
-                  <div className="px-2.5 py-2 rounded-xl bg-emerald-50 border border-emerald-100">
-                    <p className="text-xs font-semibold text-emerald-800 leading-snug">{lesson.key_insight}</p>
+                  <div className="px-2.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-800/60">
+                    <p className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 leading-snug">{lesson.key_insight}</p>
                   </div>
                 )}
 
                 {/* Lesson content */}
-                <div className="prose prose-sm max-w-none prose-slate prose-p:leading-relaxed prose-p:my-1.5 text-slate-700">
+                <div className="prose max-w-none text-foreground/85 text-[15px]">
                   <ReactMarkdown>{lesson.content}</ReactMarkdown>
                 </div>
 
@@ -149,19 +149,19 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
 
                 {/* Reflection question reminder */}
                 {lesson.reflection_question && (
-                  <div className="p-3 rounded-2xl border border-slate-200 bg-slate-50">
+                  <div className="p-3 rounded-2xl border border-border bg-muted/60">
                     <div className="flex items-center gap-2 mb-1">
-                      <MessageCircle className="w-4 h-4 text-slate-400" />
-                      <span className="text-xs text-slate-500 font-medium">Reflection prompt</span>
+                      <MessageCircle className="w-4 h-4 text-muted-foreground" />
+                      <span className="text-xs text-muted-foreground font-medium">Reflection prompt</span>
                     </div>
-                    <p className="text-sm text-slate-600 italic">"{lesson.reflection_question}"</p>
+                    <p className="text-sm text-muted-foreground italic">"{lesson.reflection_question}"</p>
                   </div>
                 )}
               </div>
             </div>
 
-          <div className="flex-shrink-0 border-t border-slate-100 p-3 bg-white" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}>
-            <button onClick={onClose} className="w-full h-11 rounded-2xl border border-slate-200 text-sm font-medium text-slate-600 hover:bg-slate-50 transition-colors">
+          <div className="flex-shrink-0 border-t border-border p-3 bg-card" style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 12px)' }}>
+            <button onClick={onClose} className="w-full h-11 rounded-2xl border border-border text-sm font-medium text-muted-foreground hover:bg-muted/60 transition-colors">
               Close
             </button>
           </div>
@@ -184,23 +184,23 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'spring', damping: 25 }}
-      className="relative w-full max-w-lg bg-white rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden"
+      className="relative w-full max-w-lg bg-card rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden"
       style={{ maxHeight: '75dvh', height: '75dvh' }}
       >
           {/* Header */}
-        <div className="bg-white border-b border-slate-100 px-3 py-2">
+        <div className="bg-card border-b border-border px-3 py-2">
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-lg flex items-center justify-center bg-gradient-to-br from-emerald-600 to-teal-600">
                 {isLiterary ? <Feather className="w-4 h-4 text-white" /> : <BookOpen className="w-4 h-4 text-white" />}
               </div>
               <div>
-                <h2 className="font-semibold text-xs text-slate-900 leading-tight">{lesson.title}</h2>
-                <p className="text-xs text-emerald-700">by {lesson.thinker}</p>
+                <h2 className="font-semibold text-xs text-foreground leading-tight">{lesson.title}</h2>
+                <p className="text-xs text-emerald-700 dark:text-emerald-300">by {lesson.thinker}</p>
               </div>
             </div>
-            <button onClick={onClose} className="p-1.5 rounded-full hover:bg-slate-100 min-h-[44px] min-w-[44px] flex items-center justify-center -mr-1.5">
-              <X className="w-4 h-4 text-slate-500" />
+            <button onClick={onClose} className="p-1.5 rounded-full hover:bg-muted min-h-[44px] min-w-[44px] flex items-center justify-center -mr-1.5">
+              <X className="w-4 h-4 text-muted-foreground" />
             </button>
           </div>
 
@@ -214,19 +214,19 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                       ? 'bg-emerald-600 text-white'
                       : i === currentStepIndex
                       ? 'bg-emerald-600 text-white'
-                      : 'bg-slate-100 text-slate-400'
+                      : 'bg-muted text-muted-foreground'
                   }`}>
                     {i < currentStepIndex ? <CheckCircle2 className="w-2.5 h-2.5" /> : i + 1}
                   </div>
                   <span className={`text-[8px] mt-0.5 ${
                     i === currentStepIndex
-                      ? 'text-emerald-700 font-semibold'
-                      : 'text-slate-400'
+                      ? 'text-emerald-700 dark:text-emerald-300 font-semibold'
+                      : 'text-muted-foreground'
                   }`}>{stepLabels[i]}</span>
                 </div>
                 {i < STEP_ORDER.length - 1 && (
                   <div className={`flex-1 h-0.5 mb-2 transition-all ${
-                    i < currentStepIndex ? 'bg-emerald-500' : 'bg-slate-200'
+                    i < currentStepIndex ? 'bg-emerald-500' : 'bg-muted'
                   }`} />
                 )}
               </React.Fragment>
@@ -235,12 +235,12 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
         </div>
 
         {/* Action Buttons at Top */}
-        <div className="px-3 py-2 border-b border-slate-100">
+        <div className="px-3 py-2 border-b border-border">
           {/* Back to lesson button for quiz and reflect steps */}
           {(step === STEPS.QUIZ || step === STEPS.REFLECT) && (
             <button
               onClick={() => setStep(STEPS.READ)}
-              className="flex items-center gap-1 text-xs text-slate-500 hover:text-emerald-700 mb-2 transition-colors"
+              className="flex items-center gap-1 text-xs text-muted-foreground hover:text-emerald-700 dark:hover:text-emerald-300 mb-2 transition-colors"
             >
               <ChevronLeft className="w-3.5 h-3.5" /> Back to lesson
             </button>
@@ -248,32 +248,32 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
           <AnimatePresence mode="wait">
             {step === STEPS.READ && !isLiterary && (
               <motion.div key="btn-read" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Button onClick={loadQuiz} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
+                <Button onClick={loadQuiz} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600text-white ">
                   Done reading — Take Quiz <ChevronRight className="w-3.5 h-3.5 ml-1" />
                 </Button>
               </motion.div>
             )}
             {step === STEPS.QUIZ && quizAnswered && (
               <motion.div key="btn-quiz" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Button onClick={() => setStep(STEPS.REFLECT)} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
+                <Button onClick={() => setStep(STEPS.REFLECT)} className="text-white w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
                   Next: Reflect <ChevronRight className="w-3.5 h-3.5 ml-1" />
                 </Button>
               </motion.div>
             )}
             {step === STEPS.REFLECT && (
               <motion.div key="btn-reflect" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <Button onClick={() => setStep(STEPS.DEPTH)} disabled={reflectionAnswer.trim().length < 5} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
+                <Button onClick={() => setStep(STEPS.DEPTH)} disabled={reflectionAnswer.trim().length < 5} className="text-white w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
                   <Brain className="w-3.5 h-3.5 mr-1.5" /> How much did this land?
                 </Button>
               </motion.div>
             )}
             {step === STEPS.DEPTH && selectedDepth && (
               <motion.div key="btn-depth" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                <div className="flex items-center justify-center gap-3 mb-1.5 text-xs text-slate-500">
-                  <span><span className="font-bold text-emerald-700">+{finalScoreBoost}</span> ME-Score</span>
+                <div className="flex items-center justify-center gap-3 mb-1.5 text-xs text-muted-foreground">
+                  <span><span className="font-bold text-emerald-700 dark:text-emerald-300">+{finalScoreBoost}</span> ME-Score</span>
                   {quizCorrect && <span className="text-green-600 font-medium">+20%</span>}
                 </div>
-                <Button onClick={handleComplete} disabled={completing} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600">
+                <Button onClick={handleComplete} disabled={completing} className="w-full h-9 text-xs font-semibold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600text-white ">
                   {completing ? <Sparkles className="w-3.5 h-3.5 mr-1.5 animate-spin" /> : <Brain className="w-3.5 h-3.5 mr-1.5" />}
                   Claim Reward
                 </Button>
@@ -293,12 +293,12 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                 ) : (
                   <div className="p-3">
                     {lesson.key_insight && (
-                      <div className="mb-2 px-2 py-2 rounded-xl bg-emerald-50 border border-emerald-100">
-                        <p className="text-xs font-semibold text-emerald-800 leading-snug">{lesson.key_insight}</p>
+                      <div className="mb-2 px-2 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-800/60">
+                        <p className="text-xs font-semibold text-emerald-800 dark:text-emerald-300 leading-snug">{lesson.key_insight}</p>
                       </div>
                     )}
 
-                    <div className="prose prose-sm max-w-none prose-slate prose-p:leading-relaxed prose-p:my-1 prose-h2:text-sm prose-h3:text-xs prose-ul:my-1 prose-li:my-0.5 text-slate-700 text-xs">
+                    <div className="prose max-w-none text-foreground/85 text-[15px]">
                       <ReactMarkdown>{lesson.content}</ReactMarkdown>
                     </div>
                   </div>
@@ -316,28 +316,28 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                       transition={{ duration: 1.5, repeat: Infinity, ease: 'linear' }}
                       className="w-10 h-10 rounded-full border-4 border-t-transparent border-emerald-500"
                     />
-                    <p className="text-sm text-slate-500">Building your quiz…</p>
+                    <p className="text-sm text-muted-foreground">Building your quiz…</p>
                   </div>
                 ) : quiz ? (
                   <>
-                    <div className="mb-2 p-2 rounded-xl bg-emerald-50 border border-emerald-100">
+                    <div className="mb-2 p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100 dark:border-emerald-800/60">
                       <div className="flex items-center gap-1.5 mb-1">
                         <HelpCircle className="w-3.5 h-3.5 text-emerald-600" />
-                        <span className="text-xs font-semibold uppercase tracking-wide text-emerald-700">Quiz</span>
+                        <span className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Quiz</span>
                       </div>
-                      <p className="font-semibold text-xs leading-snug text-slate-800">{quiz.question}</p>
+                      <p className="font-semibold text-xs leading-snug text-foreground">{quiz.question}</p>
                     </div>
 
                     <div className="space-y-1.5 mb-2">
                       {quiz.options.map((opt, i) => {
                         const isSelected = selectedAnswer === i;
                         const isCorrect = i === quiz.correctIndex;
-                        let style = 'border-slate-200 bg-white';
+                        let style = 'border-border bg-card';
                         if (quizAnswered) {
-                          if (isCorrect) style = 'border-green-500 bg-green-50';
-                          else if (isSelected) style = 'border-red-400 bg-red-50';
+                          if (isCorrect) style = 'border-green-500 bg-green-50 dark:bg-green-950/40';
+                          else if (isSelected) style = 'border-red-400 bg-red-50 dark:bg-red-950/40';
                         } else if (isSelected) {
-                          style = 'border-emerald-500 bg-emerald-50';
+                          style = 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40';
                         }
                         return (
                           <motion.button
@@ -351,13 +351,13 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                             <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                               quizAnswered && isCorrect ? 'bg-green-500 text-white' :
                               quizAnswered && isSelected ? 'bg-red-400 text-white' :
-                              'bg-slate-100 text-slate-600'
+                              'bg-muted text-muted-foreground'
                             }`}>
                               {quizAnswered && isCorrect ? <CheckCircle2 className="w-3.5 h-3.5" /> :
                                quizAnswered && isSelected ? <XCircle className="w-3.5 h-3.5" /> :
                                String.fromCharCode(65 + i)}
                             </span>
-                            <span className="text-xs font-medium text-slate-700">{opt}</span>
+                            <span className="text-xs font-medium text-foreground/85">{opt}</span>
                           </motion.button>
                         );
                       })}
@@ -368,9 +368,9 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                         <motion.div
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
-                          className={`p-2 rounded-xl border ${quizCorrect ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}
+                          className={`p-2 rounded-xl border ${quizCorrect ? 'bg-green-50 dark:bg-green-950/40 border-green-200 dark:border-green-800/60' : 'bg-red-50 dark:bg-red-950/40 border-red-200 dark:border-red-800/60'}`}
                         >
-                          <p className={`font-semibold mb-0.5 text-xs ${quizCorrect ? 'text-green-700' : 'text-red-700'}`}>
+                          <p className={`font-semibold mb-0.5 text-xs ${quizCorrect ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
                             {quizCorrect ? 'Correct!' : 'Not quite —'}
                           </p>
                           <p className={`text-xs ${quizCorrect ? 'text-green-600' : 'text-red-600'}`}>{quiz.explanation}</p>
@@ -386,12 +386,12 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
             {/* STEP 3: REFLECT */}
             {step === STEPS.REFLECT && (
               <motion.div key="reflect" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} className="p-3">
-                <div className="mb-2 p-2 rounded-xl border bg-emerald-50 border-emerald-100">
+                <div className="mb-2 p-2 rounded-xl border bg-emerald-50 dark:bg-emerald-950/40 border-emerald-100 dark:border-emerald-800/60">
                   <div className="flex items-center gap-1.5 mb-1">
                     <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-                    <h3 className="font-semibold text-xs text-emerald-800">Reflection</h3>
+                    <h3 className="font-semibold text-xs text-emerald-800 dark:text-emerald-300">Reflection</h3>
                   </div>
-                  <p className="italic text-xs text-emerald-700">"{lesson.reflection_question}"</p>
+                  <p className="italic text-xs text-emerald-700 dark:text-emerald-300">"{lesson.reflection_question}"</p>
                 </div>
 
                 <Textarea
@@ -400,7 +400,7 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                   onChange={(e) => setReflectionAnswer(e.target.value)}
                   className="min-h-[90px] rounded-xl mb-1.5 text-xs"
                 />
-                <p className={`text-xs ${reflectionAnswer.trim().length < 5 ? 'text-slate-400' : 'text-green-500 font-medium'}`}>
+                <p className={`text-xs ${reflectionAnswer.trim().length < 5 ? 'text-muted-foreground' : 'text-green-500 font-medium'}`}>
                   {reflectionAnswer.trim().length < 5 ? `${Math.max(0, 5 - reflectionAnswer.trim().length)} more characters needed` : 'Ready to continue'}
                 </p>
               </motion.div>
@@ -409,8 +409,8 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
             {/* STEP 4: DEPTH */}
             {step === STEPS.DEPTH && (
               <motion.div key="depth" initial={{ opacity: 0, x: 40 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -40 }} className="p-3">
-                <h3 className="text-sm font-bold mb-0.5 text-slate-900">How much did this sink in?</h3>
-                <p className="text-xs mb-2 text-slate-500">Be honest — it affects your score.</p>
+                <h3 className="text-sm font-bold mb-0.5 text-foreground">How much did this sink in?</h3>
+                <p className="text-xs mb-2 text-muted-foreground">Be honest — it affects your score.</p>
 
                 <div className="space-y-1.5">
                   {depthOptions.map((opt, i) => (
@@ -421,16 +421,16 @@ Return JSON with: question (string), options (array of 4 strings), correctIndex 
                       onClick={() => setSelectedDepth(opt)}
                       className={`p-2 rounded-xl border-2 cursor-pointer transition-all ${
                         selectedDepth === opt
-                          ? 'border-emerald-500 bg-emerald-50'
-                          : 'border-slate-200 hover:border-emerald-300 bg-white'
+                          ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/40'
+                          : 'border-border hover:border-emerald-300 dark:hover:border-emerald-800/60 bg-card'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-semibold text-xs text-slate-800">{opt.label}</p>
-                          <p className="text-xs text-slate-500">{opt.description}</p>
+                          <p className="font-semibold text-xs text-foreground">{opt.label}</p>
+                          <p className="text-xs text-muted-foreground">{opt.description}</p>
                         </div>
-                        <span className="text-xs font-bold text-emerald-700">×{opt.scoreMultiplier}</span>
+                        <span className="text-xs font-bold text-emerald-700 dark:text-emerald-300">×{opt.scoreMultiplier}</span>
                       </div>
                     </motion.div>
                   ))}

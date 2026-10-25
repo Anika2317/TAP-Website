@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TAP · June Event Briefing</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #FAF7F2;
+  --ink: #1C1916;
+  --purple: #6B4F8A;
+  --purple-light: #EDE8F5;
+  --purple-muted: #9B7DB8;
+  --teal: #2D7D74;
+  --teal-light: #E8F4F3;
+  --warm: #C4956A;
+  --warm-light: #FAF0E6;
+  --muted: #8A8278;
+  --rule: rgba(28,25,22,0.1);
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Lora', serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}
+
+header {
+  padding: 72px 64px 56px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,79,138,0.06) 0%, transparent 70%);
+}
+
+.h-from {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--purple-muted);
+  margin-bottom: 20px;
+}
+
+.h-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(36px, 5vw, 64px);
+  font-style: italic;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.h-title span { color: var(--purple); }
+
+.h-sub {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--muted);
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+.h-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 36px;
+  flex-wrap: wrap;
+}
+
+.hm {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hm-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple-muted);
+}
+
+.hm-val {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 64px 80px;
+}
+
+.section {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.section:last-child { border-bottom: none; }
+
+.s-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--purple-muted);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.s-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.s-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(24px, 3vw, 36px);
+  font-style: italic;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  color: var(--ink);
+}
+
+.s-body {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: #3A3530;
+  font-style: italic;
+}
+
+.callout {
+  padding: 24px 28px;
+  margin: 24px 0;
+  position: relative;
+}
+
+.callout.purple {
+  background: var(--purple-light);
+  border-left: 3px solid var(--purple);
+}
+
+.callout.teal {
+  background: var(--teal-light);
+  border-left: 3px solid var(--teal);
+}
+
+.callout.warm {
+  background: var(--warm-light);
+  border-left: 3px solid var(--warm);
+}
+
+.callout-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 10px;
+}
+
+.callout.teal .callout-label { color: var(--teal); }
+.callout.warm .callout-label { color: var(--warm); }
+
+.callout-body {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 28px;
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--rule);
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 20px;
+  padding: 16px 0;
+  position: relative;
+}
+
+.tl-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--purple);
+  margin-top: 6px;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  margin-left: 11px;
+  box-shadow: 0 0 0 4px var(--purple-light);
+}
+
+.tl-when {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--purple-muted);
+  margin-bottom: 4px;
+}
+
+.tl-what {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.tl-detail {
+  font-size: 13px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.clipboard {
+  background: #fff;
+  border: 1px solid rgba(28,25,22,0.12);
+  padding: 32px 36px;
+  margin: 24px 0;
+  position: relative;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+}
+
+.clipboard::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 28px;
+  background: #C4956A;
+  border-radius: 4px 4px 0 0;
+}
+
+.clipboard::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #A07050;
+  border: 3px solid var(--paper);
+}
+
+.clip-paper {
+  background: #FDF8F0;
+  border: 1px solid rgba(28,25,22,0.06);
+  padding: 28px 24px;
+}
+
+.clip-purple-bar {
+  background: var(--purple);
+  color: #fff;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.clip-org {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+.clip-tagline {
+  font-size: 11px;
+  opacity: 0.75;
+  margin-top: 4px;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.1em;
+}
+
+.clip-prompt {
+  font-size: 13.5px;
+  font-style: italic;
+  color: var(--ink);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.clip-field {
+  margin-bottom: 16px;
+}
+
+.clip-field-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.clip-line {
+  border: none;
+  border-bottom: 1px solid rgba(28,25,22,0.2);
+  width: 100%;
+  margin-bottom: 4px;
+  height: 20px;
+  display: block;
+}
+
+.clip-line-long {
+  border: none;
+  border-bottom: 1px solid rgba(28,25,22,0.2);
+  width: 100%;
+  margin-bottom: 4px;
+  height: 20px;
+  display: block;
+  margin-top: 8px;
+}
+
+.clip-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(28,25,22,0.08);
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+.roles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.role-card {
+  border: 1px solid var(--rule);
+  padding: 20px;
+  position: relative;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+
+.role-card:nth-child(1)::before { background: var(--purple); }
+.role-card:nth-child(2)::before { background: var(--teal); }
+.role-card:nth-child(3)::before { background: var(--warm); }
+.role-card:nth-child(4)::before { background: var(--muted); }
+
+.role-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--purple);
+  margin-bottom: 6px;
+}
+
+.role-card:nth-child(2) .role-name { color: var(--teal); }
+.role-card:nth-child(3) .role-name { color: var(--warm); }
+.role-card:nth-child(4) .role-name { color: var(--muted); }
+
+.role-person {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.role-desc {
+  font-size: 12.5px;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.setlist {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.song {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.song:last-child { border-bottom: none; }
+
+.song-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--purple-muted);
+  flex-shrink: 0;
+  width: 24px;
+}
+
+.song-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  flex: 1;
+}
+
+.song-why {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  text-align: right;
+  max-width: 200px;
+  line-height: 1.4;
+}
+
+.bring-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.bring-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13.5px;
+  font-style: italic;
+  color: #3A3530;
+  line-height: 1.5;
+}
+
+.bring-check {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--purple-muted);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+footer {
+  background: var(--ink);
+  padding: 40px 64px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.f-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 18px;
+  font-style: italic;
+  color: rgba(250,247,242,0.4);
+}
+
+.f-detail {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(250,247,242,0.2);
+}
+
+@media (max-width: 700px) {
+  header, main { padding-left: 28px; padding-right: 28px; }
+  footer { padding: 32px 28px; flex-direction: column; gap: 12px; }
+  .roles { grid-template-columns: 1fr; }
+  .bring-list { grid-template-columns: 1fr; }
+  .h-meta { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-from">TAP Event Briefing</div>
+  <div class="h-title">TAP Live<br><span>Mission Bay</span></div>
+  <div class="h-sub">Overview for our first public acoustic pop-up performance in the community.</div>
+  <div class="h-meta">
+    <div class="hm">
+      <span class="hm-label">Date</span>
+      <span class="hm-val">June 21, 2026 · Saturday</span>
+    </div>
+    <div class="hm">
+      <span class="hm-label">Time</span>
+      <span class="hm-val">12:00 PM — 1:00 PM</span>
+    </div>
+    <div class="hm">
+      <span class="hm-label">Location</span>
+      <span class="hm-val">Mission Bay Drive, San Diego</span>
+    </div>
+    <div class="hm">
+      <span class="hm-label">Format</span>
+      <span class="hm-val">Public Acoustic Pop-Up</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <div class="section">
+    <div class="s-label">The Concept</div>
+    <div class="s-title">Why we are doing this.</div>
+    <div class="s-body">
+      TAP has been playing monthly indoor sessions at care facilities and hospital units. Those gigs are great, but they happen behind closed doors. This pop-up is our first public footprint where anyone passing by can see what the project does, interact with us, and help build our network.
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">The Setup</div>
+    <div class="s-title">How it works.</div>
+
+    <div class="callout teal">
+      <div class="callout-label">Live Music</div>
+      <div class="callout-body">
+        A casual 45-minute acoustic set along Mission Bay Drive. We will use a portable Bluetooth speaker to make sure the sound carries naturally. No massive gear, just a clean setup.
+      </div>
+    </div>
+
+    <div class="callout warm">
+      <div class="callout-label">The Community Clipboard</div>
+      <div class="callout-body">
+        We will set up a small folding table with a dedicated clipboard. Passersby can write down songs that hold a deep personal memory for them. We will take these community requests and use them to build our future performance setlists at hospitals and senior centers.
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">The Playlist Interactive</div>
+    <div class="s-title">Clipboard Layout.</div>
+
+    <div class="clipboard">
+      <div class="clip-paper">
+        <div class="clip-purple-bar">
+          <div class="clip-org">The Acoustic Project</div>
+          <div class="clip-tagline">TAP Live · Mission Bay · June 2026</div>
+        </div>
+
+        <div class="clip-prompt">
+          We bring live acoustic music to care residents and patients across San Diego.<br>
+          <em>Help us build our next playlist based on songs that stay with you.</em>
+        </div>
+
+        <div class="clip-field">
+          <div class="clip-field-label">A song that carries a memory</div>
+          <span class="clip-line"></span>
+          <span style="display:flex;gap:16px;margin-top:8px;">
+            <span style="flex:1;">
+              <span style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:#8A8278;">Song Title</span>
+              <span class="clip-line"></span>
+            </span>
+            <span style="flex:1;">
+              <span style="font-size:11px;font-family:'DM Mono',monospace;letter-spacing:0.12em;text-transform:uppercase;color:#8A8278;">Artist</span>
+              <span class="clip-line"></span>
+            </span>
+          </span>
+        </div>
+
+        <div class="clip-field">
+          <div class="clip-field-label">The story or memory behind it</div>
+          <span class="clip-line-long"></span>
+          <span class="clip-line-long"></span>
+        </div>
+
+        <div class="clip-footer">@theacousticproject · San Diego, CA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">Clipboard Prompts</div>
+    <div class="s-title">Ideas for people who stop by.</div>
+    <div class="s-body">To help people figure out what to write down, we can suggest a few simple angles:</div>
+
+    <div class="callout purple" style="margin-top:24px;">
+      <div class="callout-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div style="padding-bottom:12px;border-bottom:1px solid rgba(107,79,138,0.15);">
+          "What is a classic song you are absolute certain you will never forget?"
+        </div>
+        <div style="padding-bottom:12px;border-bottom:1px solid rgba(107,79,138,0.15);">
+          "What song instantly reminds you of a specific person from your past?"
+        </div>
+        <div style="padding-bottom:12px;border-bottom:1px solid rgba(107,79,138,0.15);">
+          "What track brings back an exact moment or a specific summer?"
+        </div>
+        <div>
+          "What melody always makes you stop what you are doing and just listen?"
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">Day Of Roles</div>
+    <div class="s-title">Open spots on the team.</div>
+    <div class="roles">
+      <div class="role-card">
+        <div class="role-name">Acoustic Performance</div>
+        <div class="role-person">Musicians (2 spots)</div>
+        <div class="role-desc">Handles guitar, vocals, and song transitions. Briefly introduces TAP at the start of the 45-minute set.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-name">Table Lead</div>
+        <div class="role-person">Engagement (1-2 spots)</div>
+        <div class="role-desc">Manages the table, hands out basic info sheets, and welcomes people to add songs to the clipboard list.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-name">Media & Film</div>
+        <div class="role-person">Documentation (1 spot)</div>
+        <div class="role-desc">Captures standard wide angles, close-ups of the performance, and footage of table interactions for social content.</div>
+      </div>
+      <div class="role-card">
+        <div class="role-name">Support & Log</div>
+        <div class="role-person">Operations (1 spot)</div>
+        <div class="role-desc">Assists with quick setup/pack down of the folding table, speaker checks, and team tracking.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">Setlist Strategy</div>
+    <div class="s-title">Current Tracks.</div>
+    <div class="s-body">The current working acoustic setlist for the pop-up event:</div>
+
+    <div class="setlist">
+      <div class="song">
+        <div class="song-n">01</div>
+        <div class="song-title">Here Comes the Sun</div>
+        <div class="song-why">The Beatles</div>
+      </div>
+      <div class="song">
+        <div class="song-n">02</div>
+        <div class="song-title">Can't Help Falling in Love</div>
+        <div class="song-why">Elvis Presley</div>
+      </div>
+      <div class="song">
+        <div class="song-n">03</div>
+        <div class="song-title">You Are My Sunshine</div>
+        <div class="song-why">Traditional</div>
+      </div>
+      <div class="song">
+        <div class="song-n">04</div>
+        <div class="song-title">Do You Think You Can Love Me</div>
+        <div class="song-why">Acoustic Track</div>
+      </div>
+      <div class="song">
+        <div class="song-n">05</div>
+        <div class="song-title">Afterglow</div>
+        <div class="song-why">Acoustic Pop</div>
+      </div>
+      <div class="song">
+        <div class="song-n">06</div>
+        <div class="song-title">Flowers in Your Hair</div>
+        <div class="song-why">The Lumineers</div>
+      </div>
+      <div class="song">
+        <div class="song-n">07</div>
+        <div class="song-title">Yellow</div>
+        <div class="song-why">Coldplay</div>
+      </div>
+      <div class="song">
+        <div class="song-n">08</div>
+        <div class="song-title">Evergreen</div>
+        <div class="song-why">Acoustic Standard</div>
+      </div>
+      <div class="song">
+        <div class="song-n">09</div>
+        <div class="song-title">Riptide</div>
+        <div class="song-why">Vance Joy</div>
+      </div>
+      <div class="song">
+        <div class="song-n">10</div>
+        <div class="song-title">Ho Hey</div>
+        <div class="song-why">The Lumineers</div>
+      </div>
+      <div class="song">
+        <div class="song-n">+</div>
+        <div class="song-title">On-the-spot Additions</div>
+        <div class="song-why">Audience Requests</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">Gear List</div>
+    <div class="s-title">The Checklist.</div>
+    <div class="bring-list">
+      <div class="bring-item"><div class="bring-check"></div>Acoustic Guitars</div>
+      <div class="bring-item"><div class="bring-check"></div>Portable Bluetooth Speaker</div>
+      <div class="bring-item"><div class="bring-check"></div>Small Folding Table</div>
+      <div class="bring-item"><div class="bring-check"></div>Clipboards & Paper</div>
+      <div class="bring-item"><div class="bring-check"></div>Printed Info Cards / Zines</div>
+      <div class="bring-item"><div class="bring-check"></div>Pens & Stationaries</div>
+      <div class="bring-item"><div class="bring-check"></div>Small Event Sign / Card</div>
+      <div class="bring-item"><div class="bring-check"></div>Phone Tripod for Media</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="s-label">Day Of Schedule</div>
+    <div class="s-title">Timeline breakdown.</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-when">11:15 AM</div>
+          <div class="tl-what">Arrival & Layout</div>
+          <div class="tl-detail">Unpack table, test speaker, set up the clipboards, and mount media tripod.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-when">12:00 PM</div>
+          <div class="tl-what">Kickoff & Intro</div>
+          <div class="tl-detail">Brief 20-second intro to crowd passersby about TAP and what the project does.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-when">12:00 — 12:45 PM</div>
+          <div class="tl-what">Performance & Interaction</div>
+          <div class="tl-detail">Acoustic set runs continuously. Table leads invite people to write down songs.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-when">12:45 PM</div>
+          <div class="tl-what">Wrap & Social Callout</div>
+          <div class="tl-detail">Final performance piece and directing onlookers to our Instagram page.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-when">1:00 PM</div>
+          <div class="tl-what">Logistics Close out</div>
+          <div class="tl-detail">Photograph filled clipboard sheets for digital archives, pack down table, wrap up.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="f-name">The Acoustic Project</div>
+  <div class="f-detail">TAP Live · Mission Bay · June 2026</div>
+</footer>
+
+</body>
+</html>

@@ -24,10 +24,10 @@ const NavItem = memo(({ item, isActive, onTabClick }) => {
     <Link
     key={item.page}
     to={createPageUrl(item.page)}
-    onClick={(e) => {
+    onClick={() => {
       onTabClick(item.page);
     }}
-    className="relative flex flex-col items-center py-2 px-3 rounded-xl transition-colors min-h-[44px] min-w-[44px] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-emerald-500/50"
+    className="relative flex-1 min-w-0 flex flex-col items-center justify-center gap-0.5 py-1.5 rounded-2xl transition-colors min-h-[48px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
     style={{ WebkitTapHighlightColor: 'transparent', userSelect: 'none' }}
     role="tab"
     aria-selected={isActive}
@@ -36,12 +36,16 @@ const NavItem = memo(({ item, isActive, onTabClick }) => {
       {isActive && (
         <motion.div
           layoutId="activeTab"
-          className="absolute inset-0 bg-emerald-50 dark:bg-emerald-950 rounded-xl"
-          transition={{ type: 'spring', duration: 0.5 }}
+          className="absolute inset-0 bg-primary/10 rounded-2xl"
+          transition={{ type: 'spring', bounce: 0.2, duration: 0.45 }}
         />
       )}
-      <Icon className={`relative z-10 w-6 h-6 ${isActive ? 'text-emerald-700 dark:text-emerald-400' : 'text-muted-foreground'}`} aria-hidden="true" />
-      <span className={`relative z-10 text-xs mt-1 font-medium ${isActive ? 'text-emerald-700 dark:text-emerald-400' : 'text-muted-foreground'}`}>
+      <Icon
+        className={`relative z-10 w-[22px] h-[22px] transition-colors ${isActive ? 'text-primary' : 'text-muted-foreground'}`}
+        strokeWidth={isActive ? 2.25 : 1.75}
+        aria-hidden="true"
+      />
+      <span className={`relative z-10 text-[10.5px] leading-none tracking-tight truncate max-w-full px-0.5 ${isActive ? 'text-primary font-semibold' : 'text-muted-foreground font-medium'}`}>
         {item.label}
       </span>
     </Link>
@@ -118,7 +122,7 @@ const Layout = memo(({ children, currentPageName }) => {
           <div className="max-w-lg mx-auto px-3 h-12 flex items-center">
             <button
               onClick={() => navigate(-1)}
-              className="flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-medium text-sm min-h-[44px] px-2 -ml-2"
+              className="flex items-center gap-1 text-primary font-medium text-sm min-h-[44px] px-2 -ml-2"
               style={{ WebkitTapHighlightColor: 'transparent' }}
               aria-label="Go back"
             >
@@ -135,22 +139,22 @@ const Layout = memo(({ children, currentPageName }) => {
 
       {/* Bottom Navigation */}
       <nav
-        className="fixed bottom-0 left-0 right-0 bg-card border-t border-border z-50"
-        style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-        role="tablist"
+        className="fixed bottom-0 left-0 right-0 z-50 px-3 pointer-events-none"
+        style={{ paddingBottom: 'max(env(safe-area-inset-bottom), 10px)' }}
         aria-label="Main navigation"
       >
-        <div className="max-w-lg mx-auto px-2">
-          <div className="flex items-center justify-around py-2">
-            {navItems.map((item) => (
-              <NavItem 
-                key={item.page} 
-                item={item} 
-                isActive={currentPageName === item.page}
-                onTabClick={handleTabClick}
-              />
-            ))}
-          </div>
+        <div
+          role="tablist"
+          className="pointer-events-auto max-w-lg mx-auto flex items-stretch gap-0.5 p-1.5 rounded-[1.6rem] bg-card/85 backdrop-blur-xl border border-border shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)]"
+        >
+          {navItems.map((item) => (
+            <NavItem 
+              key={item.page} 
+              item={item} 
+              isActive={currentPageName === item.page}
+              onTabClick={handleTabClick}
+            />
+          ))}
         </div>
       </nav>
     </div>

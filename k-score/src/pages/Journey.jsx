@@ -72,7 +72,7 @@ export default function Journey() {
   const activeLevelData = activeLevel ? LEVEL_DATA.find(l => l.level === activeLevel) : null;
 
   return (
-    <div className="min-h-screen bg-background pb-28">
+    <div className="min-h-screen bg-background pb-32">
       <div className="max-w-lg mx-auto px-4 pt-6">
 
         {/* Header */}

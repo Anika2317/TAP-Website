@@ -34,11 +34,11 @@ function splitIntoCards(content) {
 function renderCard(text) {
   // Render simple markdown-ish formatting
   return text
-    .replace(/##\s+(.+)/g, '<h3 class="text-lg font-bold text-slate-900 mb-2">$1</h3>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-slate-900">$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em class="text-slate-600">$1</em>')
-    .replace(/^>\s*(.+)$/gm, '<blockquote class="border-l-3 border-amber-400 pl-3 my-2 italic text-slate-700 text-base">$1</blockquote>')
-    .replace(/^(\d+)\.\s+\*\*(.+?)\*\*\s*—\s*(.+)$/gm, '<div class="flex gap-2 mb-1"><span class="font-bold text-emerald-700">$1.</span><span><strong>$2</strong> — $3</span></div>')
+    .replace(/##\s+(.+)/g, '<h3 class="font-display text-lg font-semibold text-foreground mb-2">$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong class="text-foreground">$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em class="text-muted-foreground">$1</em>')
+    .replace(/^>\s*(.+)$/gm, '<blockquote class="border-l-[3px] border-amber-400 pl-3 my-2 italic text-foreground/85 text-base">$1</blockquote>')
+    .replace(/^(\d+)\.\s+\*\*(.+?)\*\*\s*—\s*(.+)$/gm, '<div class="flex gap-2 mb-1"><span class="font-bold text-emerald-700 dark:text-emerald-300">$1.</span><span><strong>$2</strong> — $3</span></div>')
     .replace(/^-\s+(.+)$/gm, '<div class="flex gap-2 mb-1 text-sm"><span class="text-emerald-600 mt-0.5">•</span><span>$1</span></div>')
     .replace(/\n\n/g, '<br/><br/>');
 }
@@ -74,7 +74,7 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
           <motion.div
             key={i}
             animate={{ width: i === cardIndex ? 20 : 6, opacity: i <= cardIndex ? 1 : 0.3 }}
-            className={`h-1.5 rounded-full ${i <= cardIndex ? 'bg-amber-500' : 'bg-slate-200'}`}
+            className={`h-1.5 rounded-full ${i <= cardIndex ? 'bg-amber-500' : 'bg-muted'}`}
           />
         ))}
       </div>
@@ -99,7 +99,7 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
             )}
 
             <div
-              className="text-sm text-slate-700 leading-relaxed"
+              className="text-[15px] text-foreground/85 leading-relaxed"
               dangerouslySetInnerHTML={{ __html: renderCard(cards[cardIndex]) }}
             />
 
@@ -109,13 +109,13 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2 }}
-                className="mt-4 p-3 rounded-2xl bg-amber-50 border border-amber-200"
+                className="mt-4 p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60"
               >
                 <div className="flex items-center gap-2 mb-1">
                   <Lightbulb className="w-4 h-4 text-amber-600" />
-                  <span className="text-xs font-bold text-amber-700 uppercase tracking-wide">Key Insight</span>
+                  <span className="text-xs font-bold text-amber-700 dark:text-amber-300 uppercase tracking-wide">Key Insight</span>
                 </div>
-                <p className="text-sm text-amber-800 italic">"{lesson.key_insight}"</p>
+                <p className="text-sm text-amber-800 dark:text-amber-300 italic">"{lesson.key_insight}"</p>
               </motion.div>
             )}
           </motion.div>
@@ -127,9 +127,9 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
         <button
           onClick={goPrev}
           disabled={cardIndex === 0}
-          className="w-11 h-11 rounded-2xl border border-slate-200 flex items-center justify-center disabled:opacity-30 hover:bg-slate-50"
+          className="w-11 h-11 rounded-2xl border border-border flex items-center justify-center disabled:opacity-30 hover:bg-muted/60"
         >
-          <ChevronLeft className="w-5 h-5 text-slate-500" />
+          <ChevronLeft className="w-5 h-5 text-muted-foreground" />
         </button>
 
         <Button
@@ -138,7 +138,7 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
             isLast
               ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600'
               : 'bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700'
-          }`}
+          }text-white `}
         >
           {isLast ? (
             <>
@@ -154,7 +154,7 @@ export default function LiteraryReadStep({ lesson, onFinish }) {
         </Button>
       </div>
 
-      <p className="text-center text-xs text-slate-400 mt-2">{cardIndex + 1} of {cards.length}</p>
+      <p className="text-center text-xs text-muted-foreground mt-2">{cardIndex + 1} of {cards.length}</p>
     </div>
   );
 }

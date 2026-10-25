@@ -13,7 +13,7 @@ const categoryColors = {
   personal: 'bg-purple-100 text-purple-700',
   professional: 'bg-blue-100 text-blue-700',
   social: 'bg-pink-100 text-pink-700',
-  existential: 'bg-slate-100 text-slate-700',
+  existential: 'bg-muted text-foreground/80',
 };
 
 export default function DilemmaCard({ dilemma, onClick, completed, dimmed }) {

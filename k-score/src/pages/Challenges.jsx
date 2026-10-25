@@ -4,8 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import ScrollView from '@/components/shared/ScrollView';
 import { Target, Loader2, CheckCircle, CheckCircle2, Lock, ChevronDown } from 'lucide-react';
-import LevelProgressBar from '@/components/curriculum/LevelProgressBar';
-import { computeCurriculumLevel, isGlobalLevelUnlocked } from '@/components/curriculum/curriculumUtils';
+import { computeCurriculumLevel } from '@/components/curriculum/curriculumUtils';
 import { computeKScore } from '@/lib/progressUtils';
 import DailyLimitBanner from '@/components/shared/DailyLimitBanner';
 import { isAtDailyLimit, buildDailyCountUpdate, getDailyCount, DAILY_LIMIT } from '@/components/shared/dailyLimit';
@@ -241,7 +240,7 @@ export default function Challenges() {
   return (
     <ScrollView className="min-h-screen">
       <div className="bg-gradient-to-br from-background via-emerald-50/20 dark:via-emerald-950/10 to-muted">
-        <div className="max-w-lg mx-auto px-4 py-8 pb-24">
+        <div className="max-w-lg mx-auto px-4 py-8 pb-32">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -451,7 +450,7 @@ export default function Challenges() {
             </Button>
             <Button 
               onClick={() => updateProgressMutation.mutate(confirmDialog)}
-              className="bg-gradient-to-r from-green-600 to-emerald-600"
+              className="text-white bg-gradient-to-r from-green-600 to-emerald-600"
             >
               Yes, I did it!
             </Button>

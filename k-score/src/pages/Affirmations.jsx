@@ -15,19 +15,11 @@ const skillIcons = {
 };
 
 const skillGradients = {
-  logic: 'from-navy-700 to-slate-800',
+  logic: 'from-slate-600 to-slate-900',
   empathy: 'from-emerald-500 to-teal-600',
   discipline: 'from-slate-600 to-slate-800',
   emotional_regulation: 'from-teal-500 to-emerald-700',
   integrity: 'from-emerald-600 to-teal-700',
-};
-
-const skillBgGradients = {
-  logic: 'from-slate-50 to-slate-100',
-  empathy: 'from-emerald-50 to-teal-50',
-  discipline: 'from-slate-50 to-slate-100',
-  emotional_regulation: 'from-teal-50 to-emerald-50',
-  integrity: 'from-emerald-50 to-teal-50',
 };
 
 export default function Affirmations() {
@@ -69,13 +61,12 @@ export default function Affirmations() {
     );
   }
 
-  const Icon = currentAffirmation ? skillIcons[currentAffirmation.target_skill] : Sparkles;
-  const gradient = currentAffirmation ? skillGradients[currentAffirmation.target_skill] : 'from-emerald-500 to-teal-600';
-  const bgGradient = currentAffirmation ? skillBgGradients[currentAffirmation.target_skill] : 'from-emerald-50 to-teal-50';
+  const Icon = (currentAffirmation && skillIcons[currentAffirmation.target_skill]) || Sparkles;
+  const gradient = (currentAffirmation && skillGradients[currentAffirmation.target_skill]) || 'from-emerald-500 to-teal-600';
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-emerald-50/20 dark:via-emerald-950/10 to-muted">
-      <div className="max-w-lg mx-auto px-4 py-8 pb-24">
+      <div className="max-w-lg mx-auto px-4 py-8 pb-32">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -94,13 +85,14 @@ export default function Affirmations() {
         </motion.div>
 
         {/* Filters */}
-        <div className="mb-8 overflow-x-auto pb-2">
+        <div className="mb-6 -mx-4 px-4 overflow-x-auto no-scrollbar pb-2">
           <Tabs value={filter} onValueChange={setFilter}>
-            <TabsList className="bg-card border border-border">
+            <TabsList className="bg-card border border-border w-max">
               <TabsTrigger value="all">All</TabsTrigger>
               <TabsTrigger value="logic">Logic</TabsTrigger>
               <TabsTrigger value="empathy">Empathy</TabsTrigger>
               <TabsTrigger value="discipline">Discipline</TabsTrigger>
+              <TabsTrigger value="emotional_regulation">Emotional</TabsTrigger>
               <TabsTrigger value="integrity">Integrity</TabsTrigger>
             </TabsList>
           </Tabs>
@@ -116,7 +108,7 @@ export default function Affirmations() {
           <>
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex}
+                key={`${filter}-${currentIndex}`}
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
@@ -135,7 +127,7 @@ export default function Affirmations() {
                   {/* Quote */}
                   <div className="text-center mb-6">
                     <Quote className="w-8 h-8 text-muted-foreground/30 mx-auto mb-4" />
-                    <p className="text-xl font-medium text-foreground leading-relaxed">
+                    <p className="font-display text-2xl font-normal text-foreground leading-snug">
                       {currentAffirmation?.text}
                     </p>
                   </div>
