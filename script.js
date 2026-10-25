@@ -195,7 +195,7 @@ function initCanvas() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     particles = [];
 
-    const numParticles = width < 768 ? 45 : 100;
+    const numParticles = width < 768 ? 35 : 80;
 
     for (let i = 0; i < numParticles; i++) {
         particles.push({
@@ -222,7 +222,7 @@ function drawWaves() {
 
             if (distance < 120) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(85, 122, 88, ${0.25 - distance / 500})`;
+                ctx.strokeStyle = `rgba(100, 128, 122, ${0.22 - distance / 550})`;
                 ctx.lineWidth = 0.6;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
@@ -238,7 +238,7 @@ function drawWaves() {
 
             if (distanceMouse < 160) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(201, 151, 58, ${0.5 - distanceMouse / 320})`;
+                ctx.strokeStyle = `rgba(100, 128, 122, ${0.45 - distanceMouse / 360})`;
                 ctx.lineWidth = 1;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(mouse.x, mouse.y);
@@ -259,7 +259,7 @@ function drawWaves() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(201, 151, 58, 0.55)';
+        ctx.fillStyle = 'rgba(135, 161, 150, 0.6)';
         ctx.fill();
     });
 }
