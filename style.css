@@ -11,7 +11,9 @@
     --sage-mid: #87a196;
     --sage-deep: #64807a;
     --sage-wash: #e8efeb;
-    --sand: #d9c9a8;
+    --gold: #c9a55a;
+    --gold-deep: #a8853c;
+    --gold-soft: #f4ecd9;
 
     --radius: 14px;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -52,7 +54,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* SCROLL PROGRESS */
 .scroll-progress {
     position: fixed; top: 0; left: 0; height: 2px; width: 100%;
-    background: var(--sage-mid);
+    background: linear-gradient(90deg, var(--sage-mid), var(--gold));
     transform-origin: 0 50%; transform: scaleX(0);
     z-index: 1100;
 }
@@ -85,7 +87,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn-text:hover svg { transform: translateX(4px); }
 
 .text-link { color: var(--sage-deep); background: linear-gradient(var(--sage), var(--sage)) 0 100% / 100% 1px no-repeat; transition: background-size 0.3s ease; }
-.text-link:hover { background-size: 100% 40%; }
+.text-link:hover { background-image: linear-gradient(var(--gold-soft), var(--gold-soft)); background-size: 100% 100%; }
 
 /* NAVIGATION */
 #navbar {
@@ -108,7 +110,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .brand { display: flex; align-items: center; gap: 0.6rem; }
-.brand .logo { height: 38px; width: auto; mix-blend-mode: multiply; transition: transform 0.6s var(--ease); }
+.brand .logo { height: 38px; width: auto; transition: transform 0.6s var(--ease); }
 .brand:hover .logo { transform: rotate(-6deg); }
 .brand span { font-family: var(--font-heading); font-size: 1.08rem; }
 
@@ -125,7 +127,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .dropdown-toggle svg { width: 15px; height: 15px; transition: transform 0.3s var(--ease); }
 .nav-links > li > a:not(.nav-cta)::after, .dropdown-toggle::after {
     content: ""; position: absolute; left: 0.9rem; right: 0.9rem; bottom: 0.3rem;
-    height: 1.5px; background: var(--sage-mid);
+    height: 1.5px; background: var(--gold);
     transform: scaleX(0); transform-origin: left;
     transition: transform 0.35s var(--ease);
 }
@@ -198,7 +200,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     letter-spacing: -0.02em;
     margin-bottom: 1.6rem;
 }
-.hero .amp { font-family: var(--font-hand); color: var(--sage-mid); font-size: 1.1em; display: inline-block; transform: rotate(-6deg); }
+.hero .amp { font-family: var(--font-hand); color: var(--gold); font-size: 1.1em; display: inline-block; transform: rotate(-6deg); }
 .hero-sub { font-size: clamp(1.05rem, 2vw, 1.22rem); color: var(--muted); max-width: 560px; margin: 0 auto; }
 .hero-actions { display: flex; gap: 1.25rem; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 2.25rem; }
 .hero .reveal:nth-child(2) { transition-delay: 0.12s; }
@@ -214,6 +216,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .stat { padding: 2rem 1rem; text-align: center; }
 .stat + .stat { border-left: 1px solid var(--line); }
 .stat h3 { font-size: clamp(2.2rem, 4.5vw, 3rem); color: var(--sage-deep); }
+.stat .plus { color: var(--gold); }
 .stat p { font-size: 0.95rem; color: var(--muted); }
 
 /* POLAROID PHOTOS */
@@ -245,6 +248,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     border-radius: var(--radius);
     background: var(--sage-wash);
 }
+.cta-band { border-left: 3px solid var(--gold); }
 .cta-band h2 { font-size: clamp(1.5rem, 2.8vw, 1.9rem); margin-bottom: 0.35rem; }
 .cta-band p { color: var(--muted); max-width: 560px; }
 .cta-band .btn-primary { flex: none; }
@@ -261,7 +265,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .program-row p { color: var(--muted); max-width: 600px; }
 .program-row svg { color: var(--sage-mid); transition: transform 0.35s var(--ease), color 0.3s ease; }
 .program-row:hover { background: var(--sage-wash); padding-left: 1.6rem; }
-.program-row:hover svg { transform: translateX(4px); color: var(--sage-deep); }
+.program-row:hover svg { transform: translateX(4px); color: var(--gold-deep); }
+.program-row:hover h3 { color: var(--sage-deep); }
 
 /* TWO-COLUMN LAYOUTS */
 .grid-2 { display: grid; grid-template-columns: 1.35fr 1fr; gap: 5rem; align-items: start; }
@@ -269,7 +274,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .text-block p { color: var(--muted); margin-bottom: 1.2rem; }
 
 .venue { display: flex; align-items: center; gap: 0.5rem; color: var(--ink) !important; font-weight: 500; }
-.venue svg { width: 18px; height: 18px; color: var(--sage-deep); }
+.venue svg { width: 18px; height: 18px; color: var(--gold-deep); }
 
 .photo-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
 .photo-pair .polaroid img { aspect-ratio: 4 / 5; object-position: top; }
@@ -289,7 +294,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .topic-list li::before {
     content: "♪"; position: absolute; left: 0; top: 0.9rem;
-    color: var(--sage-mid);
+    color: var(--gold);
 }
 .topic-list li:hover { color: var(--sage-deep); }
 
@@ -319,7 +324,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .note::before {
     content: ""; position: absolute; top: -12px; left: 50%;
     width: 110px; height: 26px; margin-left: -55px;
-    background: rgba(167, 188, 177, 0.55);
+    background: rgba(214, 186, 122, 0.45);
     transform: rotate(-2deg);
 }
 
@@ -354,13 +359,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 button[type="submit"]:disabled { opacity: 0.6; cursor: wait; }
 
 .form-success { text-align: center; padding: 1.5rem 0; }
-.form-success .hand { font-family: var(--font-hand); font-size: 2.8rem; color: var(--sage-deep); line-height: 1.2; margin-bottom: 0.5rem; }
+.form-success .hand { font-family: var(--font-hand); font-size: 2.8rem; color: var(--gold-deep); line-height: 1.2; margin-bottom: 0.5rem; }
 .form-success p { color: var(--muted); }
 
 /* CHAPTERS */
 .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4.5rem; }
 .chapter { border-top: 2px solid var(--sage); padding-top: 1.75rem; }
-.chapter:nth-child(2) { border-top-color: var(--sand); transition-delay: 0.12s; }
+.chapter:nth-child(2) { border-top-color: var(--gold); transition-delay: 0.12s; }
 .chapter h3 { font-size: 1.7rem; margin-bottom: 0.6rem; }
 .chapter > p { color: var(--muted); margin-bottom: 1.5rem; }
 
@@ -370,8 +375,8 @@ button[type="submit"]:disabled { opacity: 0.6; cursor: wait; }
 
 /* ABOUT: mission first, team second */
 .mission { max-width: 760px; margin: 0 auto 5.5rem; text-align: center; background: var(--bg); }
-.mission-logo { width: 76px; margin: 0 auto 1.25rem; mix-blend-mode: multiply; }
-.mission .section-title { font-family: var(--font-hand); font-size: 2rem; color: var(--sage-deep); }
+.mission-logo { width: 64px; margin: 0 auto 1.25rem; }
+.mission .section-title { font-family: var(--font-hand); font-size: 2rem; color: var(--gold-deep); }
 .mission-lead {
     font-family: var(--font-heading);
     font-size: clamp(1.9rem, 4vw, 2.9rem);
@@ -389,18 +394,18 @@ button[type="submit"]:disabled { opacity: 0.6; cursor: wait; }
     box-shadow: 0 0 0 3px var(--bg), 0 0 0 4px var(--sage);
     transition: transform 0.4s var(--ease), box-shadow 0.4s ease;
 }
-.team-grid li:hover img { transform: scale(1.08); box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--sage-mid); }
+.team-grid li:hover img { transform: scale(1.08); box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--gold); }
 .team-grid span { font-size: 0.88rem; color: var(--muted); line-height: 1.4; }
 .team-grid strong { display: block; font-weight: 600; font-size: 0.98rem; color: var(--ink); }
 
 /* FOOTER */
 footer { background: #2b3330; color: rgba(255, 255, 255, 0.7); padding: 3.5rem 0 1.75rem; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
-footer h2 { color: #fff; font-size: 1.5rem; margin-bottom: 0.3rem; }
+footer h2 { color: var(--gold); font-size: 1.5rem; margin-bottom: 0.3rem; }
 footer p { font-size: 0.9rem; }
 .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; }
 .footer-links a { font-size: 0.95rem; transition: color 0.2s ease; }
-.footer-links a:hover { color: var(--sage); }
+.footer-links a:hover { color: var(--gold); }
 .social-links { display: flex; gap: 0.75rem; }
 .social-links a { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; opacity: 0.85; transition: transform 0.4s var(--ease), opacity 0.3s ease; }
 .social-links a:hover { transform: translateY(-3px); opacity: 1; }

@@ -203,7 +203,8 @@ function initCanvas() {
             y: Math.random() * height,
             vx: (Math.random() - 0.5) * 0.5,
             vy: (Math.random() - 0.5) * 0.5,
-            size: Math.random() * 2 + 1
+            size: Math.random() * 2 + 1,
+            gold: Math.random() < 0.25
         });
     }
 }
@@ -238,7 +239,7 @@ function drawWaves() {
 
             if (distanceMouse < 160) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(100, 128, 122, ${0.45 - distanceMouse / 360})`;
+                ctx.strokeStyle = `rgba(201, 165, 90, ${0.55 - distanceMouse / 320})`;
                 ctx.lineWidth = 1;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(mouse.x, mouse.y);
@@ -259,7 +260,7 @@ function drawWaves() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(135, 161, 150, 0.6)';
+        ctx.fillStyle = p.gold ? 'rgba(201, 165, 90, 0.7)' : 'rgba(135, 161, 150, 0.6)';
         ctx.fill();
     });
 }
